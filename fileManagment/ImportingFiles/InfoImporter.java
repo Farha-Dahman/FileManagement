@@ -19,7 +19,6 @@ public class InfoImporter {
                 preparedStmt.setString(4, conent);
                 preparedStmt.execute();
                 System.out.println("success");
-                connection.close();
 
             } catch (SQLException e) {
                 e.printStackTrace();
