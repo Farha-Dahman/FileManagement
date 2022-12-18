@@ -1,11 +1,11 @@
 package fileManagment;
 
-public class File {
+public class FileInfo {
     private String fileName;
     private String fileType;
     private Float fileSize;
 
-    public File(String name,String type,Float size) {
+    public FileInfo(String name,String type,Float size) {
         this.fileName = name;
         this.fileType = type;
         this.fileSize = size;
