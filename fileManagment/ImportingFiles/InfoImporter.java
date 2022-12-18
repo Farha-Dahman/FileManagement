@@ -1,19 +1,22 @@
 package fileManagment.ImportingFiles;
-import fileManagment.FileInfo;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class InfoImporter {
 
-    public static void importinginfo(FileInfo file, Connection connection) {
+    public static void importinginfo(File file, String type, Connection connection) {
             try {
                 System.out.println("Inserting records into the table...");
                 String query = " insert into FILESINFO (name, type, size)" + " values (?, ?, ?)";
                 PreparedStatement preparedStmt = connection.prepareStatement(query);
-                preparedStmt.setString(1, file.getFileName());
-                preparedStmt.setString(2, file.getFileType());
-                preparedStmt.setFloat(3, file.getSize());
+                preparedStmt.setString(1, file.getName());
+                preparedStmt.setString(2, type);
+                preparedStmt.setFloat(3, file.length());
+                //preparedStmt.setString(4, fileData.toString());
                 preparedStmt.execute();
                 System.out.println("success");
                 connection.close();
