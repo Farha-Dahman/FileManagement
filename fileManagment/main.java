@@ -2,15 +2,14 @@ package fileManagment;
 
 import fileManagment.ImportingFiles.InfoImporter;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.util.Scanner;
 
 public class main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         Scanner sc= new Scanner(System.in);
         Connection connection = DBconnection.getConnection();
 
@@ -20,10 +19,15 @@ public class main {
         System.out.println("please enter file type");
         String fileType = sc.nextLine();
 
-        System.out.println(" name : " + file.getName() + " size : " + file.length() + " content : "+ fileData);
-        InfoImporter.importinginfo(file,fileType, connection);
+        String ff = "C:/Users/Hp/Downloads/tt.txt";
+        BufferedReader reader = new BufferedReader(new FileReader(ff));
+        String currentLine = reader.readLine();
+        reader.close();
+        System.out.println(currentLine);
 
-        /*
+        System.out.println(" name : " + file.getName() + " size : " + file.length() + " content : "+ currentLine);
+        InfoImporter.importinginfo(file,fileType,currentLine ,connection);
+/*
         try {
             File userFile = new File("C:/Users/Hp/Downloads/tt.txt");
             if (userFile.createNewFile()) {

@@ -8,15 +8,15 @@ import java.sql.SQLException;
 
 public class InfoImporter {
 
-    public static void importinginfo(File file, String type, Connection connection) {
+    public static void importinginfo(File file, String type,String conent, Connection connection) {
             try {
                 System.out.println("Inserting records into the table...");
-                String query = " insert into FILESINFO (name, type, size)" + " values (?, ?, ?)";
+                String query = " insert into FILESINFO (name, type, size,content)" + " values (?, ?, ?,?)";
                 PreparedStatement preparedStmt = connection.prepareStatement(query);
                 preparedStmt.setString(1, file.getName());
                 preparedStmt.setString(2, type);
                 preparedStmt.setFloat(3, file.length());
-                //preparedStmt.setString(4, fileData.toString());
+                preparedStmt.setString(4, conent);
                 preparedStmt.execute();
                 System.out.println("success");
                 connection.close();
