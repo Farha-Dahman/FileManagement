@@ -7,7 +7,8 @@ import java.sql.Connection;
 public class main {
     public static void main(String[] args) {
         Connection connection = DBconnection.getConnection();
-        InfoImporter.importinginfo("first","txt",20, connection);
+        File file = new File("first","txt", 24.0F);
+        InfoImporter.importinginfo(file, connection);
 
         DBconnection.Close();
     }

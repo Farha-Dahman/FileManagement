@@ -3,30 +3,22 @@ package fileManagment;
 public class File {
     private String fileName;
     private String fileType;
-    private Float size;
+    private Float fileSize;
+
+    public File(String name,String type,Float size) {
+        this.fileName = name;
+        this.fileType = type;
+        this.fileSize = size;
+    }
 
     public String getFileType() {
         return fileType;
     }
-    
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
     public String getFileName() {
         return fileName;
     }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
     public Float getSize() {
-        return size;
-    }
-
-    public void setSize(Float size) {
-        this.size = size;
+        return fileSize;
     }
 }
 
