@@ -1,4 +1,4 @@
-package fileManagment;
+package fileManagment.Database;
 import fileManagment.ImportingFiles.TableCreator;
 
 import java.sql.*;
@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class DBconnection {
 
-    private static final String LINK_OF_DATABASE = "jdbc:mysql://localhost:3306/fileManagement";
+    private static final String LINK_OF_DATABASE = "jdbc:mysql://localhost:3306/filesname";
     private static final String USER_NAME = "root";
     private static final String PASSWORD = "";
     private static Connection connection= null;
