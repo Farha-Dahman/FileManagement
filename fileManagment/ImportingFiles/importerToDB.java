@@ -6,14 +6,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class importerToDB {
-    public static void importingInfoToDB(File file, String type, Connection connection) {
+    public static void importingInfoToDB(StringBuilder name, String type,String size, int version,Connection connection) {
         try {
             System.out.println("Inserting records into the table...");
-            String query = " insert into FILESINFO (name, type, size)" + " values (?, ?, ?)";
+            String query = " insert into FILESINFO (name, type, size, version)" + " values (?, ?, ?,?)";
             PreparedStatement preparedStmt = connection.prepareStatement(query);
-            preparedStmt.setString(1, file.getName());
+            String fileName = name.toString();
+            preparedStmt.setString(1, fileName);
             preparedStmt.setString(2, type);
-            preparedStmt.setFloat(3, file.length());
+            preparedStmt.setString(3, size);
+            preparedStmt.setFloat(4, version);
+
             preparedStmt.execute();
             System.out.println("success");
 

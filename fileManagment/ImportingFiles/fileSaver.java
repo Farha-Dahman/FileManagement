@@ -3,10 +3,11 @@ package fileManagment.ImportingFiles;
 import java.io.*;
 
 public class fileSaver {
-    static void savingFiles(File file, String path) {
+    static void savingFiles(StringBuilder name, String path) {
         FileOutputStream saveFile;
+        String fileName = name.toString();
         try {
-            saveFile = new FileOutputStream(file.getName());
+            saveFile = new FileOutputStream(fileName);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

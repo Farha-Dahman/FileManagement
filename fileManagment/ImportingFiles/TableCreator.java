@@ -6,11 +6,11 @@ import java.sql.Statement;
 
 public class TableCreator {
     public static void creatingTableForFilesInfo(Connection connection) {
-        try(Statement stmt = connection.createStatement();){
+        try(Statement statement = connection.createStatement();){
 
-            String sql = "create table FILESINFO(id int(10) primary key not null AUTO_INCREMENT ,name varchar(15),type varchar(15),size float(4))";
+            String sql = "create table FILESINFO(id int(10) primary key not null AUTO_INCREMENT ,name varchar(15)  not null,type varchar(15),size float(4), version int(2))";
 
-            stmt.executeUpdate(sql);
+            statement.executeUpdate(sql);
             System.out.println("Created table in given database...");
         }
         catch (SQLException e) {
