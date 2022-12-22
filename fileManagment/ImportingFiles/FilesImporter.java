@@ -12,68 +12,71 @@ public class FilesImporter {
 
         Scanner sc= new Scanner(System.in);
         String path,fileType;
-        File file;
-        BufferedReader reader ;
         int exit =0;
-        while(exit !=1) {
+        while(exit != 1) {
             System.out.println("Please enter file path: ");
-            path = sc.nextLine();
-            System.out.println("please enter file type");
-            fileType = sc.nextLine();
-            file = new File(path);
-            try {
-                reader = new BufferedReader(new FileReader(path));
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            String content = null;
-            try {
-                content = reader.readLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                reader.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println(" name : " + file.getName() + " size : " + file.length() + " content : " + content);
-            FilesImporter.importingInfoToDB(file, fileType, content, connection);
-            FileOutputStream saveFile = null;
-            try {
-                saveFile = new FileOutputStream(file.getName());
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            ObjectOutputStream save = null;
-            try {
-                save = new ObjectOutputStream(saveFile);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                save.writeObject(path);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            try {
-                save.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            path = sc.next();
+            System.out.println("please enter file type : ");
+            fileType = sc.next();
+            File file = readingFiles(path);
+            System.out.println(" name : " + file.getName() + " size : " + file.length());
+            FilesImporter.importingInfoToDB(file, fileType, connection);
+            savingFiles(file, path);
             System.out.println("You need to exit program? (0,1) ");
-            exit = sc.nextInt();
+            exit = sc.nextInt();}
+    }
+
+    private static File readingFiles(String path) {
+        File file = null;
+        try {
+            file = new File(path);
+            Scanner myReader = new Scanner(file);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                System.out.println(data);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return file;
+    }
+
+    private static void savingFiles(File file, String path) {
+        FileOutputStream saveFile = null;
+        try {
+            saveFile = new FileOutputStream(file.getName());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        ObjectOutputStream save = null;
+        try {
+            save = new ObjectOutputStream(saveFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            save.writeObject(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            save.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-    public static void importingInfoToDB(File file, String type,String conent, Connection connection) {
+
+    public static void importingInfoToDB(File file, String type, Connection connection) {
             try {
                 System.out.println("Inserting records into the table...");
-                String query = " insert into FILESINFO (name, type, size,content)" + " values (?, ?, ?,?)";
+                String query = " insert into FILESINFO (name, type, size)" + " values (?, ?, ?)";
                 PreparedStatement preparedStmt = connection.prepareStatement(query);
                 preparedStmt.setString(1, file.getName());
                 preparedStmt.setString(2, type);
                 preparedStmt.setFloat(3, file.length());
-                preparedStmt.setString(4, conent);
+                //preparedStmt.setString(4, conent);
                 preparedStmt.execute();
                 System.out.println("success");
 
