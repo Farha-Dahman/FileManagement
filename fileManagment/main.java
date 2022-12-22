@@ -9,8 +9,6 @@ public class main {
         Connection connection = DBconnection.getConnection();
         int version =0;
         FilesImporter.importFiles(connection,version);
-        FilesImporter.importFiles(connection,version);
-        FilesImporter.importFiles(connection,version);
         DBconnection.Close();
     }
 }

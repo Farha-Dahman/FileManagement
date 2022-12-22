@@ -1,5 +1,10 @@
 package fileManagment.ImportingFiles;
 
+import fileManagment.EncryptedDecrypted.CryptoException;
+import fileManagment.EncryptedDecrypted.CryptoUtils;
+import fileManagment.EncryptedDecrypted.Decrypted;
+import fileManagment.EncryptedDecrypted.Encrypted;
+
 import java.io.*;
 import java.sql.*;
 import java.util.Scanner;
@@ -28,6 +33,12 @@ public class FilesImporter {
                 version++;
                 copyfileName.append("(" + version + ")");
             }
+
+
+            Encrypted.encrypted(copyfileName);
+            System.out.println("enc  " + copyfileName);
+            Decrypted.decrypted(copyfileName);
+            System.out.println("dec  " + copyfileName);
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             importerToDB.importingInfoToDB(copyfileName, fileType, fileSize,version,connection);
             fileSaver.savingFiles(copyfileName, path);
