@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/g.txt" charset="windows-1256" />
     <file url="file://$PROJECT_DIR$/gg.txt" charset="windows-1256" />
+    <file url="file://$PROJECT_DIR$/tt.txt" charset="windows-1252" />
     <file url="PROJECT" charset="windows-1256" />
   </component>
 </project>
