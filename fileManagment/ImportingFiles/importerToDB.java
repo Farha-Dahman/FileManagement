@@ -1,26 +1,30 @@
 package fileManagment.ImportingFiles;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class importerToDB {
-    public static void importingInfoToDB(StringBuilder name, String type,String size, int version,Connection connection) {
+    public static void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) {
         try {
             System.out.println("Inserting records into the table...");
-            String query = " insert into FILESINFO (name, type, size, version)" + " values (?, ?, ?,?)";
+            String query = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
             PreparedStatement preparedStmt = connection.prepareStatement(query);
             String fileName = name.toString();
             preparedStmt.setString(1, fileName);
             preparedStmt.setString(2, type);
             preparedStmt.setString(3, size);
             preparedStmt.setFloat(4, version);
-
+            InputStream inputFile = new FileInputStream(file.getPath());
+            preparedStmt.setBinaryStream(5,inputFile,(int)file.length());
             preparedStmt.execute();
             System.out.println("success");
 
-        } catch (SQLException e) {
+        } catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
         }
     }

@@ -29,7 +29,7 @@ public class FilesImporter {
                 copyfileName.append("(" + version + ")");
             }
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
-            importerToDB.importingInfoToDB(copyfileName, fileType, fileSize,version,connection);
+            importerToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
             fileSaver.savingFiles(copyfileName, path);
     }
 }
