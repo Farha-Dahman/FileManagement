@@ -1,5 +1,7 @@
 package fileManagment.Database;
+
 import java.sql.*;
+
 
 public class DBconnection {
 
@@ -15,7 +17,6 @@ public class DBconnection {
                     if (connection == null) {// not null
                         Class.forName("com.mysql.jdbc.Driver");
                         connection = DriverManager.getConnection(LINK_OF_DATABASE, USER_NAME, PASSWORD);
-//                        TableCreator.creatingTableForFilesInfo(connection);
                         System.out.println("Success");
                     }
                 }

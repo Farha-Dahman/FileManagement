@@ -27,7 +27,7 @@ public class ExportFile {
                     count++;
                     nameOfFile = nameOfFile + "(" + count + ")";
                 }
-                File file = new File("C:\\Users\\MASS\\FilesFromDB\\" + nameOfFile + "." + typeOfFile);
+                File file = new File("C:\\" + nameOfFile + "." + typeOfFile);
                 listOfFilesName.add(index, nameOfFile);
                 index++;
                 PrintWriter printWriter = new PrintWriter(file);
