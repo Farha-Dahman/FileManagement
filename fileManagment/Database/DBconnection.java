@@ -3,7 +3,6 @@ import fileManagment.ImportingFiles.TableCreator;
 
 import java.sql.*;
 
-
 public class DBconnection {
 
     private static final String LINK_OF_DATABASE = "jdbc:mysql://localhost:3306/fileManagement";
