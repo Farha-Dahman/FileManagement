@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import fileManagment.Database.DBconnection;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
+import fileManagment.VersionControl.RollBack.RollBack;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -18,7 +21,10 @@ public class main {
         FilesImporter.importFiles(connection, version);
         FilesImporter.importFiles(connection, version);
 
-        ExportFile exportfile = new ExportFile();
-        exportfile.exportFile(connection);
+//        ExportFile exportfile = new ExportFile();
+//        exportfile.exportFile(connection);
+
+        RollBack rollBack=new RollBack();
+        rollBack.rollBack(connection);
     }
 }
