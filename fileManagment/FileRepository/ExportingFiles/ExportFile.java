@@ -23,12 +23,15 @@ public class ExportFile {
             String typeOfFile = resultSet.getString("Type");
 
             try {
-                if(fileIsExist(listOfFilesName,nameOfFile)){
+                String nameFile = nameOfFile + "." + typeOfFile;
+                if(fileIsExist(listOfFilesName,nameFile)){
                     count++;
                     nameOfFile = nameOfFile + "(" + count + ")";
+                } else {
+                    count =0;
                 }
-                File file = new File("C:\\" + nameOfFile + "." + typeOfFile);
-                listOfFilesName.add(index, nameOfFile);
+                File file = new File("C:\\Users\\MASS\\FilesFromDB\\" + nameOfFile + "." + typeOfFile);
+                listOfFilesName.add(index, nameFile);
                 index++;
                 PrintWriter printWriter = new PrintWriter(file);
                 printWriter.write(resultSet.getString("Content"));
