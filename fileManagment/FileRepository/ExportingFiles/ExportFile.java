@@ -1,7 +1,8 @@
 package fileManagment.FileRepository.ExportingFiles;
 
+import fileManagment.CheckFileContent.ICheckContent;
 import fileManagment.FileRepository.ExportingFiles.Intf.InputInfo;
-
+import fileManagment.CheckFileContent.IsExist;
 import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -14,6 +15,8 @@ public class ExportFile {
     public void exportFile(Connection connection) throws SQLException {
         InputInfo inputInfo = new InputFileInfo();
         ResultSet resultSet = inputInfo.insertInfo(connection);
+        ICheckContent checkContent = new IsExist();
+
         ArrayList<String> listOfFilesName = new ArrayList<>(CAPACITY_OF_LIST);
         int index = 0;
         int count =0;
@@ -24,7 +27,7 @@ public class ExportFile {
 
             try {
                 String nameFile = nameOfFile + "." + typeOfFile;
-                if(fileIsExist(listOfFilesName,nameFile)){
+                if(checkContent.fileIsExist(listOfFilesName,nameFile)){
                     count++;
                     nameOfFile = nameOfFile + "(" + count + ")";
                 } else {
@@ -42,8 +45,4 @@ public class ExportFile {
             }
         }
 }
-    private boolean fileIsExist(ArrayList<String> listOfFilesName, String nameOfFile) {
-        boolean isExists = listOfFilesName.stream().anyMatch(string -> string.equals(nameOfFile));
-        return isExists;
-    }
 }
