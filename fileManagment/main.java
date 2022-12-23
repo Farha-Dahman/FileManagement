@@ -28,11 +28,7 @@ public class main {
         RollBack rollBack = new RollBack();
         rollBack.rollBack(connection);
 
-
         ExportFile exportfile = new ExportFile();
         exportfile.exportFile(connection);
-
-        DBconnection.Close();
-
     }
 }
