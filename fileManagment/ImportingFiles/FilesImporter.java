@@ -10,7 +10,7 @@ public class FilesImporter {
 
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;
-        StringBuilder copyfileName ;;
+        StringBuilder copyfileName ;
         boolean c;
             System.out.println("Please enter file path: ");
             path = sc.next();
@@ -22,7 +22,6 @@ public class FilesImporter {
             File file = new File(path);
             fileName= file.getName();
             copyfileName = new StringBuilder(fileName);
-;
             System.out.println(copyfileName);
             c = checkVersions.fileExists(copyfileName,fileType,connection);
             if(c){
@@ -31,6 +30,6 @@ public class FilesImporter {
             }
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             importerToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
-            fileSaver.savingFiles(copyfileName, path);
+            fileSaver.savingFiles(copyfileName,connection);
     }
 }
