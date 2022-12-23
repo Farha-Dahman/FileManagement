@@ -12,7 +12,7 @@ public class main {
     final static int reader=133;
     public static void main(String[] args) throws SQLException {
         Scanner in = new Scanner(System.in);
-        System.out.println("Enter the Key to determine ifyou are an Admin, User or Reader : ");
+        System.out.println("Enter the Key to determine if you are an Admin, User or Reader : ");
         int key = in.nextInt();
         if(key==admin){
             Admin.AdminOperation();
