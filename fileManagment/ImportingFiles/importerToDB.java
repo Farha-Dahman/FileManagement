@@ -1,9 +1,11 @@
 package fileManagment.ImportingFiles;
 
+import javax.sql.rowset.serial.SerialBlob;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,7 +22,10 @@ public class importerToDB {
             preparedStmt.setString(3, size);
             preparedStmt.setFloat(4, version);
             InputStream inputFile = new FileInputStream(file.getPath());
-            preparedStmt.setBinaryStream(5,inputFile,(int)file.length());
+            byte[] content = filesReader.ReadingContentAsBytes(file.getPath());
+            Blob blob = new SerialBlob(content);
+            preparedStmt.setBlob(5,blob);
+            //preparedStmt.setBinaryStream(5,inputFile,(int)file.length());
             preparedStmt.execute();
             System.out.println("success");
 

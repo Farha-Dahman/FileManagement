@@ -18,7 +18,8 @@ public class FilesImporter {
             fileType = sc.next();
             System.out.println("please enter file size : ");
             fileSize = sc.next();
-            File file = filesReader.readingFiles(path);
+            //File file = filesReader.readingFiles(path);
+            File file = new File(path);
             fileName= file.getName();
             copyfileName = new StringBuilder(fileName);
 ;
