@@ -22,13 +22,11 @@ public class main {
         FilesImporter.importFiles(connection, version);
         FilesImporter.importFiles(connection, version);
 
-//        ExportFile exportfile = new ExportFile();
-//        exportfile.exportFile(connection);
 
         RollBack rollBack = new RollBack();
         rollBack.rollBack(connection);
 
         ExportFile exportfile = new ExportFile();
-        exportfile.exportFile(connection);
+//        exportfile.exportFile(connection);
     }
 }

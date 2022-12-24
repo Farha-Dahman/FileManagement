@@ -1,8 +1,10 @@
 package fileManagment.FileRepository.ExportingFiles;
 
-import fileManagment.CheckFileContent.ICheckContent;
 import fileManagment.FileRepository.ExportingFiles.Intf.InputInfo;
 import fileManagment.CheckFileContent.IsExist;
+import fileManagment.VersionControl.RollBack.IlastVersion;
+import fileManagment.VersionControl.RollBack.LastVersion;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -20,11 +22,17 @@ public class ExportFile {
         ArrayList<String> listOfFilesName = new ArrayList<>(CAPACITY_OF_LIST);
         int index = 0;
         int count =0;
+        IlastVersion ilastVersion = new LastVersion();
 
         while(resultSet.next()) {
             String nameOfFile = resultSet.getString("FileName");
             String typeOfFile = resultSet.getString("Type");
 
+            int max_version = ilastVersion.lastVersion(resultSet);
+
+            if(max_version > 0){
+                nameOfFile = nameOfFile + "(" + max_version + ")";
+            }
             try {
                 String nameFile = nameOfFile + "." + typeOfFile;
                 if(checkContent.fileIsExist(listOfFilesName,nameFile)){
