@@ -18,7 +18,7 @@ public class InsertFileInfo implements InputInfo {
         Scanner fileType = new Scanner(System.in);
         String typeFile = fileType.nextLine().trim();
 
-        String query = "select * from files WHERE FileName = (?) and Type = (?)";
+        String query = "select * from filesinfo WHERE name = (?) and type = (?)";
         PreparedStatement prepareStatement = connection.prepareStatement(query);
         prepareStatement.setString(1, nameFile);
         prepareStatement.setString(2, typeFile);

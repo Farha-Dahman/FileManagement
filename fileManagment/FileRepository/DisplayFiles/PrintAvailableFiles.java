@@ -12,14 +12,14 @@ public class PrintAvailableFiles {
         ArrayList<String> listOfFilesName = new ArrayList<>(CAPACITY_OF_LIST);
         int index = 0;
         try {
-            String query = "SELECT * FROM files";
+            String query = "SELECT * FROM filesinfo";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             IlastVersion ilastVersion = new LastVersion();
 
             while (resultSet.next()) {
-                String filename = resultSet.getString("FileName");
-                String filetype = resultSet.getString("Type");
+                String filename = resultSet.getString("name");
+                String filetype = resultSet.getString("type");
                 int max_version = ilastVersion.lastVersion(connection,filename,filetype);
                 if(max_version > 0){
                     filename = filename + "(" + max_version + ")";

@@ -11,7 +11,7 @@ public class apis implements Iapis {
     public ResultSet getByName(Connection connection, String fileName) {
         ResultSet resultSet = null;
         try {
-            String query = "select * from files WHERE FileName = (?)";
+            String query = "select * from filesinfo WHERE name = (?)";
             PreparedStatement prepareStatement = connection.prepareStatement(query);
             prepareStatement.setString(1, fileName);
             resultSet = prepareStatement.executeQuery();
@@ -24,7 +24,7 @@ public class apis implements Iapis {
     public ResultSet getByType(Connection connection, String type) {
         ResultSet resultSet = null;
         try {
-            String query = "select * from files WHERE Type = (?)";
+            String query = "select * from filesinfo WHERE type = (?)";
             PreparedStatement prepareStatement = connection.prepareStatement(query);
             prepareStatement.setString(1, type);
             resultSet = prepareStatement.executeQuery();
@@ -38,7 +38,7 @@ public class apis implements Iapis {
     public ResultSet getBySize(Connection connection, String size) {
         ResultSet resultSet = null;
         try {
-            String query = "select * from files WHERE Size = (?)";
+            String query = "select * from filesinfo WHERE size = (?)";
             PreparedStatement prepareStatement = connection.prepareStatement(query);
             prepareStatement.setString(1, size);
             resultSet = prepareStatement.executeQuery();

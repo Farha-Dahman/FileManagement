@@ -18,8 +18,8 @@ public class ExportFile {
         IlastVersion ilastVersion = new LastVersion();
 
         while (resultSet.next()) {
-            String nameOfFile = resultSet.getString("FileName");
-            String typeOfFile = resultSet.getString("Type");
+            String nameOfFile = resultSet.getString("name");
+            String typeOfFile = resultSet.getString("type");
             int max_version = ilastVersion.lastVersion(connection,nameOfFile,typeOfFile);
 
             if(max_version > 0){
@@ -29,7 +29,7 @@ public class ExportFile {
             try {
                 File file = new File("C:\\Users\\MASS\\FilesFromDB\\" + nameOfFile + "." + typeOfFile);
                 PrintWriter printWriter = new PrintWriter(file);
-                printWriter.write(resultSet.getString("Content"));
+                printWriter.write(resultSet.getString("content"));
                 printWriter.close();
 
             } catch (Exception e) {
