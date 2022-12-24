@@ -6,13 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class FilesChecker {
+    private static final String SELECTSQL = "SELECT id,name,type,version FROM FILESINFO WHERE name = ? AND type = ? AND version = ? ";
+
     public static int fileExists(StringBuilder name, String type, int version, Connection connection) {
         String fileName = name.toString();
         int fileId = 0;
-        String selectSQL = "SELECT id,name,type,version FROM FILESINFO WHERE name = ? AND type = ? AND version = ? ";
         PreparedStatement preparedStmt;
         try {
-            preparedStmt = connection.prepareStatement(selectSQL);
+            preparedStmt = connection.prepareStatement(SELECTSQL);
             preparedStmt.setString(1,fileName);
             preparedStmt.setString(2,type);
             preparedStmt.setInt(3,version);

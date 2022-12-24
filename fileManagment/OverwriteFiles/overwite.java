@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class overwite {
+    private static final String UPDATEQUERY = "update FILESINFO set content = ?";
+
     public static void overwitting(Connection connection){
         Scanner scanner = new Scanner(System.in);
         String fileType,path;
@@ -26,9 +28,8 @@ public class overwite {
 
         fileId = FilesChecker.fileExists(fileName,fileType,fileVersion,connection);
         PreparedStatement preparedStmt;
-        final String updateQuery = "update FILESINFO set content = ?";
         try {
-            preparedStmt = connection.prepareStatement(updateQuery);
+            preparedStmt = connection.prepareStatement(UPDATEQUERY);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

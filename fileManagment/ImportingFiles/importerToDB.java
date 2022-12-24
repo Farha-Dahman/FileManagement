@@ -8,11 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class importerToDB {
+    private static final String INSERTFILESINFOQUERY = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
     public static void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) {
         try {
             System.out.println("Inserting records into the table...");
-            final String insertFilesInfoQuery = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
-            PreparedStatement preparedStmt = connection.prepareStatement(insertFilesInfoQuery);
+            PreparedStatement preparedStmt = connection.prepareStatement(INSERTFILESINFOQUERY);
             String fileName = name.toString();
             preparedStmt.setString(1, fileName);
             preparedStmt.setString(2, type);

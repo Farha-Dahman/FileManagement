@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.sql.*;
 
 public class StoreContentToFile {
+    private static final String SELECTCONTENTQUERY = "select content from FILESINFO";
+
     public static void storingContent(Connection connection, String OutputFilePath){
 
         Statement statement;
@@ -16,8 +18,7 @@ public class StoreContentToFile {
         }
         ResultSet rs;
         try {
-            final String selectContentQuery = "select content from FILESINFO";
-            rs = statement.executeQuery(selectContentQuery);
+            rs = statement.executeQuery(SELECTCONTENTQUERY);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
