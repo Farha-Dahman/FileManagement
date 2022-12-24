@@ -1,4 +1,6 @@
 package fileManagment;
+import fileManagment.ImportingFiles.TableCreator;
+
 import java.sql.*;
 
 
@@ -16,6 +18,7 @@ public class DBconnection {
                     if (connection == null) {// not null
                         Class.forName("com.mysql.jdbc.Driver");
                         connection = DriverManager.getConnection(LINK_OF_DATABASE, USER_NAME, PASSWORD);
+                        TableCreator.creatingTableForFilesInfo(connection);
                         System.out.println("Success");
                     }
                 }
@@ -25,8 +28,6 @@ public class DBconnection {
             System.out.println(e);
             return connection;
         }
-    }
-    private DBconnection() {
     }
     public static void Close(){
         try {
