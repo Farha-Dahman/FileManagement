@@ -3,13 +3,17 @@ package fileManagment.UsersType;
 import fileManagment.Database.DBconnection;
 import fileManagment.ImportingFiles.FilesImporter;
 import fileManagment.ImportingFiles.TableCreator;
+import fileManagment.Main;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Staff {
+    private static Logger logger = Logger.getLogger(Main.class);
     public static void displayMenu(){
+        logger.info("Inside the displayMenu function");
         System.out.println();
         System.out.println(
                 "1. Enter 1 to import Files \n"+
@@ -20,6 +24,7 @@ public class Staff {
     }
     public static int version = 0;
     public static void staffOperation() throws SQLException {
+        logger.info("Inside the staffOperation function");
         Scanner in = new Scanner(System.in);
         Connection connection = DBconnection.getConnection();
         System.out.println("Welcome,Staff");
@@ -29,6 +34,7 @@ public class Staff {
             int choice = in.nextInt();
             switch (choice) {
                 case 1:{
+                    logger.info("Inside the case 1");
                     TableCreator.creatingTableForFilesInfo(connection);
                     FilesImporter.importFiles(connection, version);
                     break;
@@ -37,11 +43,13 @@ public class Staff {
 
                 }
                 case -1: {
+                    logger.info("Inside the case -1");
                     DBconnection.Close();
                     System.out.println("end of program");
                     return;
                 }
                 default:
+                    logger.info("Inside the default case");
                     System.out.println("Please re_enter the number to a valid number:");
             }
 

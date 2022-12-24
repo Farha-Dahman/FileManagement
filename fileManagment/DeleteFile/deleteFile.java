@@ -1,6 +1,6 @@
 package fileManagment.DeleteFile;
 
-import fileManagment.DBconnection;
+import fileManagment.Database.DBconnection;
 
 import java.sql.*;
 
@@ -18,15 +18,15 @@ public class deleteFile{
     }
 
     public void deleteFileByName(String FileName) {
-        String sql="DELETE FROM filesinfo WHERE name = ?";
+        String sql= "DELETE FROM filesinfo WHERE name = ?";
         deleteByClassefication(sql, FileName);
     }
     public void deleteFileByType(String FileType) {
-        String sql="DELETE FROM filesinfo WHERE type = ?";
+        String sql = "DELETE FROM filesinfo WHERE type = ?";
         deleteByClassefication(sql,FileType);
     }
     public void deleteFileBySize(String FileSize){
-        String sql="DELETE FROM filesinfo WHERE size = ?";
+        String sql = "DELETE FROM filesinfo WHERE size = ?";
         deleteByClassefication(sql,FileSize);
     }
 

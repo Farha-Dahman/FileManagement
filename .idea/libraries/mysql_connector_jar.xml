@@ -9,6 +9,9 @@
     </CLASSES>
     <JAVADOC />
     <SOURCES />
+    <excluded>
+      <root url="jar://$USER_HOME$/Downloads/log4j-1.2.17.jar!/" />
+    </excluded>
     <jarDirectory url="jar://$USER_HOME$/Downloads/mysql-connector.jar.zip!/" recursive="false" />
   </library>
 </component>
