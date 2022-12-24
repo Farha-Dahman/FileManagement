@@ -2,6 +2,7 @@ package fileManagment.ImportingFiles;
 
 import Exceptions.IOFileException;
 import Exceptions.SQLQueryException;
+import Exceptions.NullObjectException;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class StoreContentToFile {
-    public static void storingContent(Connection connection, String OutputFilePath) throws SQLQueryException, IOFileException {
+    public static void storingContent(Connection connection, String OutputFilePath) throws SQLQueryException, IOFileException, NullObjectException {
 
         Statement statement;
         try {
@@ -34,9 +35,12 @@ public class StoreContentToFile {
         byte[] byteArray;
         try {
             byteArray = blob.getBytes( 1 ,(int)blob.length());
+        } catch (NullPointerException e){
+            throw new NullObjectException("Content is empty ");
         } catch (SQLException e) {
             throw new SQLQueryException("Failed on converting content to bytes array");
         }
+
         FileOutputStream outPutStream;
         try {
             outPutStream = new FileOutputStream(OutputFilePath);
