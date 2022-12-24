@@ -8,7 +8,7 @@ public class fileSaver {
 
         System.out.println("name is : " + name);
         String fileSeparator = System.getProperty("file.separator");
-        String absoluteFilePath = fileSeparator+"C:"+fileSeparator+"FilesFromImporter"+fileSeparator + name;
+        String absoluteFilePath = fileSeparator+"C:"+fileSeparator+"FilesFromImporter"+fileSeparator + name + ".txt";
         File file = new File(absoluteFilePath);
         try {
             if(file.createNewFile()){

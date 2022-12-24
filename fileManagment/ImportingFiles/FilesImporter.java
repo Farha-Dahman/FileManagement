@@ -22,14 +22,14 @@ public class FilesImporter {
             fileName= file.getName();
             copyfileName = new StringBuilder(fileName);
             System.out.println(copyfileName);
-            c = checkVersions.fileExists(copyfileName,fileType,connection);
+            c = checkVersions.fileExists(copyfileName,fileType,version,connection);
             while (c){
                 version++;
-                copyfileName.replace(fileName.length(),fileName.length()+3,"(" + version + ")");
-                c = checkVersions.fileExists(copyfileName,fileType,connection);
+                c = checkVersions.fileExists(copyfileName,fileType,version,connection);
             }
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             importerToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
+            if(version !=0)copyfileName.replace(fileName.length(),fileName.length()+3,"(" + version + ")");
             fileSaver.savingFiles(copyfileName,connection);
     }
 }
