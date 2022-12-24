@@ -15,12 +15,12 @@ public class RollBack {
     public void rollBack(Connection connection) throws SQLException {
         InputInfo inputInfo = new InsertFileInfo();
         ResultSet resultSet = inputInfo.insertInfo(connection);
-        IlastVersion ilastVersion = new LastVersion();
+        LastVersion lastVersion = new LastVersion();
 
         resultSet.next();
         String nameFile = resultSet.getString("FileName");
         String typeFile = resultSet.getString("Type");
-        int max_version = ilastVersion.lastVersion(resultSet);
+        int max_version = lastVersion.lastVersion(resultSet);
 
         String delete_query = "DELETE FROM files WHERE FileName = (?) and Type = (?) and version = (?)";
         PreparedStatement prepareStatement = connection.prepareStatement(delete_query);

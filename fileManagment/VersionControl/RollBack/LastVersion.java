@@ -3,7 +3,7 @@ package fileManagment.VersionControl.RollBack;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LastVersion implements IlastVersion{
+public class LastVersion {
     public int lastVersion(ResultSet resultSet) throws SQLException {
         int max_version = 0;
         while (resultSet.next()) {
