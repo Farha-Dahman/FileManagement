@@ -15,6 +15,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import fileManagment.Database.DBconnection;
+import fileManagment.FileRepository.DisplayFiles.PrintAvailableFiles;
+import fileManagment.FileRepository.ExportingFiles.ExportFile;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+
 public class main {
     public static void main(String[] args) throws IOException, SQLException {
         Connection connection = DBconnection.getConnection();
@@ -26,7 +33,9 @@ public class main {
         RollBack rollBack = new RollBack();
         rollBack.rollBack(connection);
 
-        ExportFile exportfile = new ExportFile();
+//        ExportFile exportfile = new ExportFile();
 //        exportfile.exportFile(connection);
+        PrintAvailableFiles printAvailableFiles = new PrintAvailableFiles();
+        printAvailableFiles.printFiles(connection);
     }
 }
