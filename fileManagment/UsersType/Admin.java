@@ -1,8 +1,8 @@
 package fileManagment.UsersType;
-
 import fileManagment.DBconnection;
 import fileManagment.DeleteFile.deleteFile;
 import fileManagment.ImportingFiles.FilesImporter;
+import fileManagment.ImportingFiles.importerToDB;
 import fileManagment.ImportingFiles.TableCreator;
 
 import java.sql.Connection;
@@ -17,7 +17,7 @@ public class Admin {
                         "2. Enter 2 to \n"+
                         "3. Enter 3 to delete file by name\n"+
                         "4. Enter 4 to delete by classify \n"+
-                        "5. Enter 5 to classify files by type or size or custom category\n"+
+                        "5. Enter 5 to create custom category classification\n"+
                         "6. Enter  -1 to end program"
         );
         System.out.println();
@@ -63,6 +63,17 @@ public class Admin {
                     break;
                 }
                 case 5:{
+                    //   FileClassification.CreateTableClassification(connection);
+                    System.out.println("Enter null for the one you do not want to create a classify on :\n");
+                    System.out.println("Enter File Name :");
+                    String FileName=in.next();
+                    System.out.println("Enter Type of File :");
+                    String FileType=in.next();
+                    System.out.println("Enter Size(large,medium,small) of File :");
+                    String FileSize=in.next();
+                    System.out.println("Enter name of classification:");
+                    String classificationName=in.next();
+                    importerToDB.importCustomCategoryToDB(classificationName,FileName,FileType,FileSize,connection);
                     break;
                 }
                 case -1: {
