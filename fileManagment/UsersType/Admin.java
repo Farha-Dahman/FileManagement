@@ -1,5 +1,5 @@
 package fileManagment.UsersType;
-import fileManagment.DBconnection;
+import fileManagment.Database.DBconnection;
 import fileManagment.DeleteFile.deleteFile;
 import fileManagment.ImportingFiles.FilesImporter;
 import fileManagment.ImportingFiles.importerToDB;
@@ -22,6 +22,7 @@ public class Admin {
         );
         System.out.println();
     }
+    public static int version = 0;
     public static void AdminOperation() throws SQLException {
         Scanner in = new Scanner(System.in);
         deleteFile deleteFile=new deleteFile();
@@ -34,7 +35,7 @@ public class Admin {
             switch (choice) {
                 case 1:{
                     TableCreator.creatingTableForFilesInfo(connection);
-                    FilesImporter.importFiles(connection);
+                    FilesImporter.importFiles(connection,version);
                     break;
                 }
                 case 3: {

@@ -1,6 +1,6 @@
 package fileManagment.UsersType;
 
-import fileManagment.DBconnection;
+import fileManagment.Database.DBconnection;
 import fileManagment.ImportingFiles.FilesImporter;
 import fileManagment.ImportingFiles.TableCreator;
 
@@ -18,6 +18,7 @@ public class Staff {
         );
         System.out.println();
     }
+    public static int version = 0;
     public static void staffOperation() throws SQLException {
         Scanner in = new Scanner(System.in);
         Connection connection = DBconnection.getConnection();
@@ -29,7 +30,7 @@ public class Staff {
             switch (choice) {
                 case 1:{
                     TableCreator.creatingTableForFilesInfo(connection);
-                    FilesImporter.importFiles(connection);
+                    FilesImporter.importFiles(connection, version);
                     break;
                 }
                 case 2 : {
