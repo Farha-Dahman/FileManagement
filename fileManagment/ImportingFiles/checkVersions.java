@@ -6,12 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class checkVersions {
-    static boolean fileExists(StringBuilder name, String type,int version, Connection connection) {
+    public static int fileExists(StringBuilder name, String type, int version, Connection connection) {
         String fileName = name.toString();
-        String fileType;
-        int fileVresion;
-        String exists = null;
-        String selectSQL = "SELECT name,type,version FROM FILESINFO WHERE name = ? AND type = ? AND version = ? ";
+        int fileId = 0;
+        String selectSQL = "SELECT id,name,type,version FROM FILESINFO WHERE name = ? AND type = ? AND version = ? ";
         PreparedStatement preparedStmt;
         try {
             preparedStmt = connection.prepareStatement(selectSQL);
@@ -21,13 +19,8 @@ public class checkVersions {
             ResultSet rs = preparedStmt.executeQuery();
             try {
                 while (rs.next()) {
-                    fileName = rs.getString("name");
-                    System.out.println("File Name : " + fileName);
-                    fileType = rs.getString("type");
-                    System.out.println("File Type : " + type);
-                    fileVresion = rs.getInt("version");
-                    System.out.println("File Version : " + version);
-                    exists = fileName;
+                    fileId = rs.getInt("id");
+                    System.out.println("File id : " + fileId);
                 }
             } catch (SQLException e1) {
                 e1.printStackTrace();
@@ -37,6 +30,6 @@ public class checkVersions {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return !(exists == null);
+        return fileId;
     }
 }

@@ -11,7 +11,7 @@ public class FilesImporter {
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;
         StringBuilder copyfileName ;
-        boolean c;
+        int c;
             System.out.println("Please enter file path: ");
             path = sc.next();
             System.out.println("please enter file type : ");
@@ -23,7 +23,7 @@ public class FilesImporter {
             copyfileName = new StringBuilder(fileName);
             System.out.println(copyfileName);
             c = checkVersions.fileExists(copyfileName,fileType,version,connection);
-            while (c){
+            while (c!= 0){
                 version++;
                 c = checkVersions.fileExists(copyfileName,fileType,version,connection);
             }
