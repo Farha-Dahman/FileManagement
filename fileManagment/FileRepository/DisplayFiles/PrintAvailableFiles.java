@@ -17,6 +17,7 @@ public class PrintAvailableFiles {
             ResultSet resultSet = statement.executeQuery(query);
             IlastVersion ilastVersion = new LastVersion();
 
+            System.out.println("This all available files in your system: ");
             while (resultSet.next()) {
                 String filename = resultSet.getString("name");
                 String filetype = resultSet.getString("type");
@@ -25,7 +26,7 @@ public class PrintAvailableFiles {
                     filename = filename + "(" + max_version + ")";
                 }
                 if(!IsExist(listOfFilesName,filename)) {
-                    System.out.format("%s%s%s\n", filename, ".", filetype);
+                    System.out.format("%s\n", filename);
                 }
                 listOfFilesName.add(index,filename);
                 index++;
