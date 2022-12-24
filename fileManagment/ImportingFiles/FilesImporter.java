@@ -1,4 +1,6 @@
 package fileManagment.ImportingFiles;
+import Exceptions.IOFileException;
+import Exceptions.SQLQueryException;
 
 import java.io.*;
 import java.sql.*;
@@ -6,7 +8,7 @@ import java.util.Scanner;
 
 public class FilesImporter {
 
-    public static void importFiles(Connection connection, int version){
+    public static void importFiles(Connection connection, int version) throws SQLQueryException, IOFileException{
 
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;

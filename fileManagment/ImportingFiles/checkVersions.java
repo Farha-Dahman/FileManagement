@@ -1,15 +1,15 @@
 package fileManagment.ImportingFiles;
 
+import Exceptions.SQLQueryException;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class checkVersions {
-    static boolean fileExists(StringBuilder name, String type,int version, Connection connection) {
+    static boolean fileExists(StringBuilder name, String type,int version, Connection connection) throws SQLQueryException {
         String fileName = name.toString();
-        String fileType;
-        int fileVresion;
         String exists = null;
         String selectSQL = "SELECT name,type,version FROM FILESINFO WHERE name = ? AND type = ? AND version = ? ";
         PreparedStatement preparedStmt;
@@ -18,24 +18,20 @@ public class checkVersions {
             preparedStmt.setString(1,fileName);
             preparedStmt.setString(2,type);
             preparedStmt.setInt(3,version);
-            ResultSet rs = preparedStmt.executeQuery();
+            ResultSet result = preparedStmt.executeQuery();
             try {
-                while (rs.next()) {
-                    fileName = rs.getString("name");
+                while (result.next()) {
+                    fileName = result.getString("name");
                     System.out.println("File Name : " + fileName);
-                    fileType = rs.getString("type");
-                    System.out.println("File Type : " + type);
-                    fileVresion = rs.getInt("version");
-                    System.out.println("File Version : " + version);
                     exists = fileName;
                 }
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                throw new SQLQueryException("Failed on reading info from DB ");
             } finally {
                 preparedStmt.close();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLQueryException("Failed on the select sql query ");
         }
         return !(exists == null);
     }

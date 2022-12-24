@@ -1,10 +1,12 @@
 package fileManagment.ImportingFiles;
 
+import Exceptions.IOFileException;
+
 import java.io.*;
 import java.sql.*;
 
 public class fileSaver {
-    static void savingFiles(StringBuilder name, Connection connection) {
+    static void savingFiles(StringBuilder name, Connection connection) throws IOFileException {
 
         System.out.println("name is : " + name);
         String fileSeparator = System.getProperty("file.separator");
@@ -15,7 +17,7 @@ public class fileSaver {
                 System.out.println(absoluteFilePath+" File Created");
             }else System.out.println("File "+absoluteFilePath+" already exists");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOFileException("Failed on create file at a specific path ");
         }
 
         StoreContentToFile.storingContent(connection,absoluteFilePath);
