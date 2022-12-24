@@ -11,8 +11,8 @@ public class importerToDB {
     public static void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) {
         try {
             System.out.println("Inserting records into the table...");
-            String query = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
-            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            final String insertFilesInfoQuery = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
+            PreparedStatement preparedStmt = connection.prepareStatement(insertFilesInfoQuery);
             String fileName = name.toString();
             preparedStmt.setString(1, fileName);
             preparedStmt.setString(2, type);

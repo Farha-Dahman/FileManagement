@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class checkVersions {
+public class FilesChecker {
     public static int fileExists(StringBuilder name, String type, int version, Connection connection) {
         String fileName = name.toString();
         int fileId = 0;

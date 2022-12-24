@@ -16,7 +16,8 @@ public class StoreContentToFile {
         }
         ResultSet rs;
         try {
-            rs = statement.executeQuery("select content from FILESINFO");
+            final String selectContentQuery = "select content from FILESINFO";
+            rs = statement.executeQuery(selectContentQuery);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -28,9 +29,11 @@ public class StoreContentToFile {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        byte[] byteArray;
+        byte[] byteArray = new byte[0];
         try {
-            byteArray = blob.getBytes( 1 ,(int)blob.length());
+            if (blob != null) {
+                byteArray = blob.getBytes( 1 ,(int)blob.length());
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

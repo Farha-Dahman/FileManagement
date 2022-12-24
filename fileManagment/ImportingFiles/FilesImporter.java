@@ -22,10 +22,10 @@ public class FilesImporter {
             fileName= file.getName();
             copyfileName = new StringBuilder(fileName);
             System.out.println(copyfileName);
-            c = checkVersions.fileExists(copyfileName,fileType,version,connection);
+            c = FilesChecker.fileExists(copyfileName,fileType,version,connection);
             while (c!= 0){
                 version++;
-                c = checkVersions.fileExists(copyfileName,fileType,version,connection);
+                c = FilesChecker.fileExists(copyfileName,fileType,version,connection);
             }
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             importerToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
