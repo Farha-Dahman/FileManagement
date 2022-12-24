@@ -5,31 +5,23 @@ import fileManagment.UsersType.Staff;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-import fileManagment.Database.DBconnection;
-import fileManagment.FileRepository.ExportingFiles.ExportFile;
-import fileManagment.VersionControl.RollBack.InsertFileInfo;
-import fileManagment.VersionControl.RollBack.RollBack;
-import java.io.IOException;
-import fileManagment.Database.DBconnection;
-import fileManagment.FileRepository.DisplayFiles.PrintAvailableFiles;
 
 public class main {
     final static int admin=111;
     final static int staff=122;
     final static int reader=133;
+    static int version=0;
     public static void main(String[] args) throws SQLException {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter the Key to determine if you are an Admin, User or Reader : ");
         int key = in.nextInt();
-        if(key==admin){
+        if (key == admin) {
             Admin.AdminOperation();
-        }
-        else if(key==staff){
+        } else if (key == staff) {
             Staff.staffOperation();
-        }
-        else if(key==reader){
-            Reader.ReaderOperation();
-        }
+        } else if (key == reader) {
+            Reader.ReadingFile();
+    }
         else{
             System.out.println("The entered Key is incorrect");
         }

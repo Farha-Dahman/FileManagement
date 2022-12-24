@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class checkVersions {
-    static boolean fileExists(StringBuilder name, String type,int version, Connection connection) {
+   public static boolean fileExists(StringBuilder name, String type,int version, Connection connection) {
         String fileName = name.toString();
         String fileType;
         int fileVresion;
