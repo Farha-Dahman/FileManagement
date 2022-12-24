@@ -4,7 +4,6 @@ import fileManagment.FileRepository.ExportingFiles.Intf.InputInfo;
 import fileManagment.CheckFileContent.IsExist;
 import fileManagment.VersionControl.RollBack.IlastVersion;
 import fileManagment.VersionControl.RollBack.LastVersion;
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -27,8 +26,7 @@ public class ExportFile {
         while(resultSet.next()) {
             String nameOfFile = resultSet.getString("FileName");
             String typeOfFile = resultSet.getString("Type");
-
-            int max_version = ilastVersion.lastVersion(resultSet);
+            int max_version = ilastVersion.lastVersion(connection,nameOfFile,typeOfFile);
 
             if(max_version > 0){
                 nameOfFile = nameOfFile + "(" + max_version + ")";
