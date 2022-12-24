@@ -20,7 +20,7 @@ public class RollBack {
         resultSet.next();
         String nameFile = resultSet.getString("FileName");
         String typeFile = resultSet.getString("Type");
-        int max_version = lastVersion.lastVersion(resultSet);
+        int max_version = lastVersion.lastVersion(connection,nameFile,typeFile);
 
         String delete_query = "DELETE FROM files WHERE FileName = (?) and Type = (?) and version = (?)";
         PreparedStatement prepareStatement = connection.prepareStatement(delete_query);
