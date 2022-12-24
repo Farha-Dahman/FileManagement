@@ -1,11 +1,7 @@
 package fileManagment.FileRepository.ExportingFiles;
 
-import fileManagment.CheckFileContent.ICheckContent;
 import fileManagment.FileRepository.ExportingFiles.Intf.InputInfo;
-import fileManagment.CheckFileContent.IsExist;
-import fileManagment.VersionControl.RollBack.InsertFileInfo;
-import fileManagment.VersionControl.RollBack.LastVersion;
-
+import fileManagment.VersionControl.RollBack.IlastVersion;
 import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -19,14 +15,14 @@ public class ExportFile {
     public void exportFile(Connection connection) throws SQLException {
         InputInfo inputInfo = new InputFileInfo();
         ResultSet resultSet = inputInfo.insertInfo(connection);
-        LastVersion lastVersion = new LastVersion();
+        IlastVersion ilastVersion = new LastVersion();
 
         while (resultSet.next()) {
             String nameOfFile = resultSet.getString("FileName");
             String typeOfFile = resultSet.getString("Type");
-            int max_version = lastVersion.lastVersion(resultSet);
+            int max_version = ilastVersion.lastVersion(resultSet);
 
-            if(max_version > 0 ){
+            if(max_version > 0){
                 nameOfFile = nameOfFile + "(" + max_version + ")";
             }
 
