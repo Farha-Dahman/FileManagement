@@ -29,7 +29,7 @@ public class importerToDB {
             System.out.println("success");
 
         } catch (SQLException e) {
-            throw new SQLQueryException("Import to DB failed ");
+            throw new SQLQueryException("Import file information to DB failed ");
         }
     }
 }

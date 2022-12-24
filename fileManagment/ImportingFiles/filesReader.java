@@ -1,32 +1,34 @@
 package fileManagment.ImportingFiles;
 
+import Exceptions.IOFileException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class filesReader {
-    public static byte[] ReadingContentAsBytes(String path){
-        File inputfile = new File(path);
-        FileInputStream inputFile;
+    public static byte[] ReadingContentAsBytes(String path) throws IOFileException {
+        File inputFile = new File(path);
+        FileInputStream fileInputStream;
         try {
-            inputFile = new FileInputStream(inputfile);
+            fileInputStream = new FileInputStream(inputFile);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new IOFileException("Failed on creating input file stream.");
         }
-        byte[] arr = new byte[(int)inputfile.length()];
+        byte[] contentAsBytes = new byte[(int)inputFile.length()];
         try {
-            inputFile.read(arr);
+            fileInputStream.read(contentAsBytes);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOFileException("Failed on reading content");
         }
         try {
-            inputFile.close();
+            fileInputStream.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOFileException("Failed in closing input file");
         }
-
-        System.out.println(arr);
-        return arr;
+        System.out.println(Arrays.toString(contentAsBytes));
+        return contentAsBytes;
     }
 }

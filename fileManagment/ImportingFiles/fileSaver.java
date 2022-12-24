@@ -1,12 +1,13 @@
 package fileManagment.ImportingFiles;
 
 import Exceptions.IOFileException;
+import Exceptions.SQLQueryException;
 
 import java.io.*;
 import java.sql.*;
 
 public class fileSaver {
-    static void savingFiles(StringBuilder name, Connection connection) throws IOFileException {
+    static void savingFiles(StringBuilder name, Connection connection) throws IOFileException, SQLQueryException {
 
         System.out.println("name is : " + name);
         String fileSeparator = System.getProperty("file.separator");

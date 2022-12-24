@@ -1,49 +1,52 @@
 package fileManagment.ImportingFiles;
 
+import Exceptions.IOFileException;
+import Exceptions.SQLQueryException;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 
 public class StoreContentToFile {
-    public static void storingContent(Connection connection, String OutputFilePath){
+    public static void storingContent(Connection connection, String OutputFilePath) throws SQLQueryException, IOFileException {
 
         Statement statement;
         try {
             statement = connection.createStatement();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLQueryException("Failed on creating Statement to sending a query to DB ");
         }
-        ResultSet rs;
+        ResultSet resultSet;
         try {
-            rs = statement.executeQuery("select content from FILESINFO");
+            resultSet = statement.executeQuery("select content from FILESINFO");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLQueryException("Failed on executing select query");
         }
         Blob blob = null;
         try {
-            if(rs.next()){
-                blob = rs.getBlob("content");
+            if(resultSet.next()){
+                blob = resultSet.getBlob("content");
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLQueryException("Failed on reading content from DB");
         }
         byte[] byteArray;
         try {
             byteArray = blob.getBytes( 1 ,(int)blob.length());
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLQueryException("Failed on converting content to bytes array");
         }
         FileOutputStream outPutStream;
         try {
             outPutStream = new FileOutputStream(OutputFilePath);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new IOFileException("Failed on creating output file");
         }
         try {
             outPutStream.write(byteArray);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOFileException("Failed on writing content to a specific file");
         }
     }
 }
