@@ -6,7 +6,6 @@ import fileManagment.VersionControl.RollBack.LastVersion;
 import java.io.File;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +28,6 @@ public class ExportFile {
 
             try {
                 File file = new File("C:\\Users\\MASS\\FilesFromDB\\" + nameOfFile + "." + typeOfFile);
-
                 PrintWriter printWriter = new PrintWriter(file);
                 printWriter.write(resultSet.getString("Content"));
                 printWriter.close();
@@ -38,10 +36,5 @@ public class ExportFile {
                 System.out.println(e.getMessage());
             }
         }
-
 }
-    public boolean fileIsExist(ArrayList<String> listOfFilesName, String nameOfFile) {
-        boolean isExists = listOfFilesName.stream().anyMatch(string -> string.equals(nameOfFile));
-        return isExists;
-    }
 }

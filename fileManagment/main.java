@@ -29,13 +29,14 @@ public class main {
         FilesImporter.importFiles(connection, version);
         FilesImporter.importFiles(connection, version);
 
+//        RollBack rollBack = new RollBack();
+//        rollBack.rollBack(connection);
 
-        RollBack rollBack = new RollBack();
-        rollBack.rollBack(connection);
+        ExportFile exportfile = new ExportFile();
+        exportfile.exportFile(connection);
 
-//        ExportFile exportfile = new ExportFile();
-//        exportfile.exportFile(connection);
-        PrintAvailableFiles printAvailableFiles = new PrintAvailableFiles();
-        printAvailableFiles.printFiles(connection);
+
+//        PrintAvailableFiles printAvailableFiles = new PrintAvailableFiles();
+//        printAvailableFiles.printFiles(connection);
     }
 }
