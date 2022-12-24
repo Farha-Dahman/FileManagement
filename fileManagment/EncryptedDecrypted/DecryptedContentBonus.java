@@ -1,25 +1,17 @@
 package fileManagment.EncryptedDecrypted;
 import fileManagment.ImportingFiles.filesReader;
-
 import java.io.UnsupportedEncodingException;
 import java.security.*;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 public class DecryptedContentBonus {
-    public static byte[] Dycrept(){
-        //Creating a Signature object
-        try {
-            Signature sign = Signature.getInstance("SHA256withRSA");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+    public static void Dycrept(String path){
 
         //Creating KeyPair generator object
-        KeyPairGenerator keyPairGen = null;
+        KeyPairGenerator keyPairGen;
         try {
             keyPairGen = KeyPairGenerator.getInstance("RSA");
         } catch (NoSuchAlgorithmException e) {
@@ -53,8 +45,7 @@ public class DecryptedContentBonus {
         }
 
         //Add data to the cipher
-        //File file = new File("C:\\FilesFromImporter\\tt.txt");
-        byte[] input = filesReader.ReadingContentAsBytes("C:\\FilesFromImporter\\tt.txt");
+        byte[] input = filesReader.ReadingContentAsBytes(path);
         //byte[] input = r.getBytes();
         cipher.update(input);
 
@@ -90,6 +81,5 @@ public class DecryptedContentBonus {
             throw new RuntimeException(e);
         }
         System.out.println(new String(decipheredText));
-        return decipheredText;
     }
 }
