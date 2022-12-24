@@ -1,8 +1,6 @@
-package fileManagment;
+package fileManagment.Database;
 import fileManagment.ImportingFiles.TableCreator;
-
 import java.sql.*;
-
 
 public class DBconnection {
 

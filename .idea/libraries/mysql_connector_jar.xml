@@ -4,6 +4,7 @@
       <root url="jar://$USER_HOME$/Downloads/mysql-connector.jar.zip!/" />
       <root url="jar://$USER_HOME$/Downloads/mysql-connector.jar/mysql-connector.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/jar_files (1)/mysql-connector-java-5.1.47.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/mysql-connector-java-5.1.47.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
