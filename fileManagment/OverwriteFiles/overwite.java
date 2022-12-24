@@ -1,5 +1,6 @@
 package fileManagment.OverwriteFiles;
-import fileManagment.ImportingFiles.checkVersions;
+import fileManagment.ImportingFiles.StoreContentToFile;
+import fileManagment.ImportingFiles.FilesChecker;
 import fileManagment.ImportingFiles.filesReader;
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
@@ -22,10 +23,12 @@ public class overwite {
         fileVersion= scanner.nextInt();
         System.out.println("Please enter file path: ");
         path = scanner.next();
-        fileId = checkVersions.fileExists(fileName,fileType,fileVersion,connection);
+
+        fileId = FilesChecker.fileExists(fileName,fileType,fileVersion,connection);
         PreparedStatement preparedStmt;
+        final String updateQuery = "update FILESINFO set content = ?";
         try {
-            preparedStmt = connection.prepareStatement("update FILESINFO set content = ?");
+            preparedStmt = connection.prepareStatement(updateQuery);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -40,5 +43,10 @@ public class overwite {
                 throw new RuntimeException(e);
             }
         }
+
+        String fileSeparator = System.getProperty("file.separator");
+        String absoluteFilePath = fileSeparator+"C:"+fileSeparator+"FilesFromImporter"+fileSeparator + fileName + ".txt";
+        StoreContentToFile.storingContent(connection,absoluteFilePath);
+
     }
 }
