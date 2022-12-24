@@ -10,16 +10,10 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 public class EncryptedContentBonus {
-    public static byte[] encrypted(){
-        //Creating a Signature object
-        try {
-            Signature sign = Signature.getInstance("SHA256withRSA");
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
+    public static void encrypted(String path){
 
         //Creating KeyPair generator object
-        KeyPairGenerator keyPairGen = null;
+        KeyPairGenerator keyPairGen;
         try {
             keyPairGen = KeyPairGenerator.getInstance("RSA");
         } catch (NoSuchAlgorithmException e) {
@@ -33,7 +27,7 @@ public class EncryptedContentBonus {
         KeyPair pair = keyPairGen.generateKeyPair();
 
         //Creating a Cipher object
-        Cipher cipher = null;
+        Cipher cipher;
         try {
             cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         } catch (NoSuchAlgorithmException e) {
@@ -50,12 +44,11 @@ public class EncryptedContentBonus {
         }
 
         //Adding data to the cipher
-        //byte[] input = "Welcome to Tutorialspoint".getBytes();
-        byte[] input = filesReader.ReadingContentAsBytes("C:\\FilesFromImporter\\tt.txt");
+        byte[] input = filesReader.ReadingContentAsBytes(path);
         cipher.update(input);
 
         //encrypting the data
-        byte[] cipherText = new byte[0];
+        byte[] cipherText;
         try {
             cipherText = cipher.doFinal();
         } catch (IllegalBlockSizeException e) {
@@ -68,6 +61,5 @@ public class EncryptedContentBonus {
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-        return cipherText;
     }
 }

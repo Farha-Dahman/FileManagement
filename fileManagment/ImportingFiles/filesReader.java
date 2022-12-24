@@ -1,24 +1,32 @@
 package fileManagment.ImportingFiles;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
 
 public class filesReader {
-    static File readingFiles(String path) {
-        File file = null;
+    public static byte[] ReadingContentAsBytes(String path){
+        File inputfile = new File(path);
+        FileInputStream inputFile;
         try {
-            file = new File(path);
-            Scanner myReader = new Scanner(file);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                System.out.println(data);
-            }
-            myReader.close();
+            inputFile = new FileInputStream(inputfile);
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return file;
+        byte[] arr = new byte[(int)inputfile.length()];
+        try {
+            inputFile.read(arr);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            inputFile.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(arr);
+        return arr;
     }
 }
