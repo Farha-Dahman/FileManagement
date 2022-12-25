@@ -8,12 +8,13 @@ import org.apache.log4j.Logger;
 import java.sql.*;
 
 public class DBconnection {
-    private static Logger logger = Logger.getLogger(Main.class);
+    private final static Logger logger = Logger.getLogger(Main.class);
     private static final String LINK_OF_DATABASE = "jdbc:mysql://localhost:3306/fileManagement";
     private static final String USER_NAME = "root";
     private static final String PASSWORD = "";
     private static Connection connection= null;
     public static Connection getConnection() throws NullObjectException, SQLQueryException {
+        logger.debug("Enter to getConnection function.");
         logger.info("Inside the connection function");
         try{
             if (connection == null) {
@@ -30,6 +31,7 @@ public class DBconnection {
                     }
                 }
             }
+            logger.debug("Exit from getConnection function.");
             return connection;
         } catch (SQLException e) {
             throw new SQLQueryException("Failed on creating table");
@@ -38,11 +40,13 @@ public class DBconnection {
         }
     }
     public static void Close() throws NullObjectException, SQLQueryException {
+        logger.debug("Enter to Close function.");
         logger.info("Closed the connection");
         try {
             DBconnection.getConnection().close();
         } catch (SQLException e) {
             throw new SQLQueryException("Failed on getting the connection");
         }
+        logger.debug("Exit to Close function.");
     }
 }
