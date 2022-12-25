@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class deleteFile{
     private static Logger logger = Logger.getLogger(Main.class);
-    public void deleteByClassefication(String sql,String classification) throws SQLQueryException {
+    public void deleteByClassefication(String sql,String classification) throws SQLQueryException, NullObjectException {
         logger.info("Inside the delete By Classification function");
         try {
             PreparedStatement pstmt = DBconnection.getConnection().prepareStatement(sql);
@@ -23,25 +23,25 @@ public class deleteFile{
         }
     }
 
-    public void deleteFileByName(String FileName) throws NullObjectException {
+    public void deleteFileByName(String FileName) throws NullObjectException, SQLQueryException {
         logger.info("Inside the delete By Name function");
         String sql= "DELETE FROM filesinfo WHERE name = ?";
         deleteByClassefication(sql, FileName);
         logger.info("deleted from database");
     }
-    public void deleteFileByType(String FileType) throws NullObjectException {
+    public void deleteFileByType(String FileType) throws NullObjectException, SQLQueryException {
         logger.info("Inside the delete By Type function");
         String sql = "DELETE FROM filesinfo WHERE type = ?";
         deleteByClassefication(sql,FileType);
         logger.info("deleted from database");
     }
-    public void deleteFileBySize(String FileSize) throws NullObjectException {
+    public void deleteFileBySize(String FileSize) throws NullObjectException, SQLQueryException {
         logger.info("Inside the delete By Size function");
         String sql = "DELETE FROM filesinfo WHERE size = ?";
         deleteByClassefication(sql,FileSize);
         logger.info("deleted from database");
     }
-    public void deleteBycustomCategory(String nameClassification) throws SQLQueryException{
+    public void deleteBycustomCategory(String nameClassification) throws SQLQueryException, NullObjectException {
         String sql = "SELECT name,type,size FROM customCategory WHERE nameClassification=?";
         PreparedStatement pstmt=null;
         String fileName=null;

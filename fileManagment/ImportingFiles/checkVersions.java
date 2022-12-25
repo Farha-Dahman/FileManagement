@@ -9,10 +9,10 @@ import java.sql.SQLException;
 
 public class checkVersions {
     private static Logger logger = Logger.getLogger(Main.class);
-    static boolean fileExists(StringBuilder name, String type,int version, Connection connection) throws SQLQueryException {
+    static int fileExists(StringBuilder name, String type,int version, Connection connection) throws SQLQueryException {
         logger.info("Inside the fileExists function");
         String fileName = name.toString();
-        String exists = null;
+        int fileId =0;
         String selectSQL = "SELECT name,type,version FROM FILESINFO WHERE name = ? AND type = ? AND version = ? ";
         logger.info("Creating the selectSQL query");
         PreparedStatement preparedStmt;
@@ -25,19 +25,20 @@ public class checkVersions {
             logger.info("Execute the selectSQL query");
             try {
                 while (result.next()) {
-                    fileName = result.getString("name");
-                    System.out.println("File Name : " + fileName);
-                    exists = fileName;
+                    fileId = result.getInt("id");
+                    System.out.println("File id : " + fileId);
                 }
             } catch (SQLException e1) {
+                logger.warn("May have an error in reading info from DB");
                 throw new SQLQueryException("Failed on reading info from DB ");
             } finally {
                 preparedStmt.close();
                 logger.info("Closed the PreparedStatement");
             }
         } catch (SQLException e) {
+            logger.warn("May have an error in select query");
             throw new SQLQueryException("Failed on the select sql query ");
         }
-        return !(exists == null);
+        return fileId;
     }
 }
