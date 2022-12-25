@@ -1,6 +1,6 @@
-package fileManagment.ImportingFiles.impl;
+package fileManagment.FileRepository.ImportingFiles.impl;
 
-import fileManagment.ImportingFiles.intf.IFileChecker;
+import fileManagment.FileRepository.ImportingFiles.intf.IFileChecker;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

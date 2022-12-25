@@ -1,9 +1,8 @@
-package fileManagment.ImportingFiles.impl;
+package fileManagment.FileRepository.ImportingFiles.impl;
 import Exceptions.IOFileException;
 import Exceptions.SQLQueryException;
-import fileManagment.ImportingFiles.impl.filesReader;
-import fileManagment.ImportingFiles.intf.IFileReader;
-import fileManagment.ImportingFiles.intf.IimporterToDB;
+import fileManagment.FileRepository.ImportingFiles.intf.IFileReader;
+import fileManagment.FileRepository.ImportingFiles.intf.IimporterToDB;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import javax.sql.rowset.serial.SerialBlob;

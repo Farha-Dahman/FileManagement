@@ -1,7 +1,7 @@
-package fileManagment.ImportingFiles.impl;
+package fileManagment.FileRepository.ImportingFiles.impl;
 
 import Exceptions.IOFileException;
-import fileManagment.ImportingFiles.intf.IFileReader;
+import fileManagment.FileRepository.ImportingFiles.intf.IFileReader;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.io.File;
