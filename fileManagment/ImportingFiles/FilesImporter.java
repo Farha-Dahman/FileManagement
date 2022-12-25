@@ -26,10 +26,10 @@ public class FilesImporter {
             fileName= file.getName();
             copyfileName = new StringBuilder(fileName);
             System.out.println(copyfileName);
-            c = checkVersions.fileExists(copyfileName,fileType,connection);
-            if(c){
+            c = checkVersions.fileExists(copyfileName,fileType,version,connection);
+            while (c){
                 version++;
-                copyfileName.append("(" + version + ")");
+                c = checkVersions.fileExists(copyfileName,fileType,version,connection);
             }
 
             Encrypted.encrypted(copyfileName);
@@ -41,7 +41,8 @@ public class FilesImporter {
 
 
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
-            importerToDB.importingInfoToDB(copyfileName, fileType, fileSize,version,connection);
-            fileSaver.savingFiles(copyfileName, path);
+            importerToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
+            if(version !=0)copyfileName.replace(fileName.length(),fileName.length()+3,"(" + version + ")");
+            fileSaver.savingFiles(copyfileName,connection);
     }
 }

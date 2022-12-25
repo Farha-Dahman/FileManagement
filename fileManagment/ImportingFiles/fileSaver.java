@@ -1,31 +1,25 @@
 package fileManagment.ImportingFiles;
 
 import java.io.*;
+import java.sql.*;
 
 public class fileSaver {
-    static void savingFiles(StringBuilder name, String path) {
-        FileOutputStream saveFile;
-        String fileName = name.toString();
+    static void savingFiles(StringBuilder name, Connection connection) {
+
+        System.out.println("name is : " + name);
+        String fileSeparator = System.getProperty("file.separator");
+        String absoluteFilePath = fileSeparator+"C:"+fileSeparator+"FilesFromImporter"+fileSeparator + name + ".txt";
+        File file = new File(absoluteFilePath);
         try {
-            saveFile = new FileOutputStream(fileName);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        ObjectOutputStream save;
-        try {
-            save = new ObjectOutputStream(saveFile);
+            if(file.createNewFile()){
+                System.out.println(absoluteFilePath+" File Created");
+            }else System.out.println("File "+ absoluteFilePath +" already exists");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try {
-            save.writeObject(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            save.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+
+        StoreContentToFile.storingContent(connection,absoluteFilePath);
+        System.out.println(absoluteFilePath);
+        System.out.println();
     }
 }
