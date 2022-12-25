@@ -1,5 +1,5 @@
 package fileManagment.DeleteFile;
-
+import Exceptions.SQLQueryException;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.Main;
@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class deleteFile{
     private static Logger logger = Logger.getLogger(Main.class);
-    public void deleteByClassefication(String sql,String classification) throws NullObjectException {
+    public void deleteByClassefication(String sql,String classification) throws SQLQueryException {
         logger.info("Inside the delete By Classification function");
         try {
             PreparedStatement pstmt = DBconnection.getConnection().prepareStatement(sql);
@@ -19,7 +19,7 @@ public class deleteFile{
         }
         catch (SQLException e){
             logger.info("SQLException");
-            System.out.println(e.getMessage());
+            throw new SQLQueryException("Failed in deleteing files from DB");
         }
     }
 
@@ -41,7 +41,7 @@ public class deleteFile{
         deleteByClassefication(sql,FileSize);
         logger.info("deleted from database");
     }
-    public void deleteBycustomCategory(String nameClassification){
+    public void deleteBycustomCategory(String nameClassification) throws SQLQueryException{
         String sql = "SELECT name,type,size FROM customCategory WHERE nameClassification=?";
         PreparedStatement pstmt=null;
         String fileName=null;
@@ -89,8 +89,8 @@ public class deleteFile{
                 deleteFileBySize(fileSize);
             }
             System.out.println("File deleted..");
-        }catch (Exception e){
-            e.getMessage();
+        }catch (SQLException e){
+            throw new SQLQueryException("Failed in deleting files from DB");
         }
     }
 
