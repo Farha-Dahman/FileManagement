@@ -1,5 +1,6 @@
 package fileManagment.FileRepository.DisplayFiles;
 
+import Exceptions.SQLQueryException;
 import fileManagment.Main;
 import fileManagment.VersionControl.RollBack.IlastVersion;
 import fileManagment.VersionControl.RollBack.LastVersion;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class PrintAvailableFiles {
     private static Logger logger = Logger.getLogger(Main.class);
     private static final int CAPACITY_OF_LIST = 10000;
-    public void printFiles(Connection connection) {
+    public void printFiles(Connection connection) throws SQLQueryException {
         logger.info("Inside the printFiles function");
         ArrayList<String> listOfFilesName = new ArrayList<>(CAPACITY_OF_LIST);
         int index = 0;
@@ -42,7 +43,7 @@ public class PrintAvailableFiles {
             logger.info("closed statement");
             statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLQueryException("Failed in selecting files from DB");
         }
     }
     public boolean IsExist(ArrayList<String> listOfFilesName, String nameOfFile) {

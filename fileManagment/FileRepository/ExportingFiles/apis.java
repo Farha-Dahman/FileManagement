@@ -1,5 +1,6 @@
 package fileManagment.FileRepository.ExportingFiles;
 
+import Exceptions.SQLQueryException;
 import fileManagment.Database.DBconnection;
 import fileManagment.FileRepository.ExportingFiles.Intf.Iapis;
 import fileManagment.Main;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 public class apis implements Iapis {
     private static Logger logger = Logger.getLogger(Main.class);
 
-    public ResultSet getByName(Connection connection, String fileName) {
+    public ResultSet getByName(Connection connection, String fileName) throws SQLQueryException {
         logger.info("Inside the getByName function");
         ResultSet resultSet = null;
         try {
@@ -25,13 +26,13 @@ public class apis implements Iapis {
             logger.info("Created the resultSet");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLQueryException("Failed on getting files by name from DB");
         }
         logger.info("returned the resultSet");
         return resultSet;
     }
 
-    public ResultSet getByType(Connection connection, String type) {
+    public ResultSet getByType(Connection connection, String type) throws SQLQueryException {
         ResultSet resultSet = null;
         try {
             String query = "select * from filesinfo WHERE type = (?)";
@@ -42,13 +43,13 @@ public class apis implements Iapis {
             logger.info("Created the resultSet");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLQueryException("Failed on getting files by type from DB");
         }
         logger.info("returned the resultSet");
         return resultSet;
     }
 
-    public ResultSet getBySize(Connection connection, String size) {
+    public ResultSet getBySize(Connection connection, String size) throws SQLQueryException {
         ResultSet resultSet = null;
         try {
             String query = "select * from filesinfo WHERE size = (?)";
@@ -59,13 +60,13 @@ public class apis implements Iapis {
             logger.info("Created the resultSet");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLQueryException("Failed on getting files by size from DB");
         }
         logger.info("returned the resultSet");
         return resultSet;
     }
 
-    public ResultSet getByCustom(Connection connection, String nameClassification) {
+    public ResultSet getByCustom(Connection connection, String nameClassification) throws SQLQueryException {
         ResultSet resultSet = null;
         String sql = "SELECT name,type,size FROM customCategory WHERE nameClassification=?";
         try {
@@ -74,7 +75,7 @@ public class apis implements Iapis {
             resultSet = preparedStatement.executeQuery();
             ExportByCustom.exportByCustom(connection,resultSet);
         } catch (Exception e) {
-            e.getMessage();
+            throw new SQLQueryException("Failed on getting files by custom from DB");
         }
         return resultSet;
     }

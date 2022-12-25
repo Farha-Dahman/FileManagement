@@ -1,5 +1,7 @@
 package fileManagment.FileRepository.ExportingFiles;
 
+import Exceptions.NullObjectException;
+import Exceptions.SQLQueryException;
 import fileManagment.Database.DBconnection;
 import fileManagment.FileRepository.ExportingFiles.Intf.Iapis;
 import fileManagment.Main;
@@ -8,10 +10,11 @@ import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ExportByCustom {
     private static Logger logger = Logger.getLogger(Main.class);
-    public static void exportByCustom(Connection connection, ResultSet resultSet) {
+    public static void exportByCustom(Connection connection, ResultSet resultSet) throws SQLQueryException, NullObjectException {
         logger.info("Inside the exportByCustom function");
         Iapis iapis = new apis();
         String fileName = null;
@@ -63,8 +66,10 @@ public class ExportByCustom {
                     iapis.getBySize(connection, fileSize);
                 }
             }
-        } catch (Exception e){
-            e.getMessage();
+        } catch (SQLException e) {
+            throw new SQLQueryException("Failed in getting files information by custom from DB ");
+        } catch (NullObjectException e) {
+            throw new NullObjectException("Failed on getting the connection ");
         }
     }
 }
