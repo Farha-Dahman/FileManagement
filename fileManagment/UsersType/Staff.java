@@ -1,5 +1,7 @@
 package fileManagment.UsersType;
 
+import Exceptions.IOFileException;
+import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
 import fileManagment.ImportingFiles.FilesImporter;
@@ -23,7 +25,7 @@ public class Staff {
         System.out.println();
     }
     public static int version = 0;
-    public static void staffOperation() throws SQLException {
+    public static void staffOperation() throws SQLException, NullObjectException, IOFileException {
         logger.info("Inside the staffOperation function");
         Scanner in = new Scanner(System.in);
         Connection connection = DBconnection.getConnection();

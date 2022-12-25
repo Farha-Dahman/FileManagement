@@ -1,5 +1,6 @@
 package fileManagment.ImportingFiles;
 import Exceptions.IOFileException;
+import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
 import fileManagment.EncryptedDecrypted.Decrypted;
 import fileManagment.EncryptedDecrypted.DecryptedContentBonus;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 
 public class FilesImporter {
     private static Logger logger = Logger.getLogger(Main.class);
-    public static void importFiles(Connection connection, int version) throws SQLQueryException, IOFileException{
+    public static void importFiles(Connection connection, int version) throws SQLQueryException, IOFileException, NullObjectException {
         logger.info("Inside the importFiles function");
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;

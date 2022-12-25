@@ -1,4 +1,7 @@
 package fileManagment.OverwriteFiles;
+import Exceptions.IOFileException;
+import Exceptions.NullObjectException;
+import Exceptions.SQLQueryException;
 import fileManagment.ImportingFiles.StoreContentToFile;
 import fileManagment.ImportingFiles.FilesChecker;
 import fileManagment.ImportingFiles.filesReader;
@@ -12,7 +15,7 @@ import java.util.Scanner;
 public class overwite {
     private static final String UPDATEQUERY = "update FILESINFO set content = ?";
 
-    public static void overwitting(Connection connection){
+    public static void overwitting(Connection connection) throws IOFileException, SQLQueryException, NullObjectException {
         Scanner scanner = new Scanner(System.in);
         String fileType,path;
         StringBuilder fileName;
@@ -31,7 +34,7 @@ public class overwite {
         try {
             preparedStmt = connection.prepareStatement(UPDATEQUERY);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new SQLQueryException("Failed on updating the content on DB");
         }
         if(fileId!=0){
             byte[] content = filesReader.ReadingContentAsBytes(path);
@@ -41,7 +44,7 @@ public class overwite {
                 preparedStmt.setBlob(1,blob);
                 preparedStmt.execute();
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new SQLQueryException("Failed in modifying content in DB");
             }
         }
 

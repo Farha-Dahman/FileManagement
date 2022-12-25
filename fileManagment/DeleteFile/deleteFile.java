@@ -1,5 +1,6 @@
 package fileManagment.DeleteFile;
 
+import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
@@ -8,7 +9,7 @@ import java.sql.*;
 
 public class deleteFile{
     private static Logger logger = Logger.getLogger(Main.class);
-    public void deleteByClassefication(String sql,String classification){
+    public void deleteByClassefication(String sql,String classification) throws NullObjectException {
         logger.info("Inside the delete By Classification function");
         try {
             PreparedStatement pstmt = DBconnection.getConnection().prepareStatement(sql);
@@ -22,19 +23,19 @@ public class deleteFile{
         }
     }
 
-    public void deleteFileByName(String FileName) {
+    public void deleteFileByName(String FileName) throws NullObjectException {
         logger.info("Inside the delete By Name function");
         String sql= "DELETE FROM filesinfo WHERE name = ?";
         deleteByClassefication(sql, FileName);
         logger.info("deleted from database");
     }
-    public void deleteFileByType(String FileType) {
+    public void deleteFileByType(String FileType) throws NullObjectException {
         logger.info("Inside the delete By Type function");
         String sql = "DELETE FROM filesinfo WHERE type = ?";
         deleteByClassefication(sql,FileType);
         logger.info("deleted from database");
     }
-    public void deleteFileBySize(String FileSize){
+    public void deleteFileBySize(String FileSize) throws NullObjectException {
         logger.info("Inside the delete By Size function");
         String sql = "DELETE FROM filesinfo WHERE size = ?";
         deleteByClassefication(sql,FileSize);

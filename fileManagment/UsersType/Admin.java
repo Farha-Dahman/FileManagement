@@ -1,4 +1,6 @@
 package fileManagment.UsersType;
+import Exceptions.IOFileException;
+import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.DeleteFile.deleteFile;
 import fileManagment.FileClassification.printTableCustomCategory;
@@ -34,7 +36,7 @@ public class Admin {
         System.out.println();
     }
     public static int version = 0;
-    public static void AdminOperation() throws SQLException {
+    public static void AdminOperation() throws SQLException, NullObjectException, IOFileException {
         logger.info("Inside the AdminOperation function");
         Scanner in = new Scanner(System.in);
         deleteFile deleteFile=new deleteFile();

@@ -1,5 +1,6 @@
 package fileManagment.FileClassification;
 
+import Exceptions.SQLQueryException;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 
@@ -10,7 +11,7 @@ import java.sql.Statement;
 
 public class printTableCustomCategory {
     private static Logger logger = Logger.getLogger(Main.class);
-    public static void printTableClassification(Connection connection) {
+    public static void printTableClassification(Connection connection) throws SQLQueryException {
         logger.info("Inside the print Table Classification function");
         try {
             String query = "SELECT * FROM customCategory";
@@ -42,7 +43,7 @@ public class printTableCustomCategory {
             }
             statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLQueryException("Failed on getting info from DB");
         }
     }
 }

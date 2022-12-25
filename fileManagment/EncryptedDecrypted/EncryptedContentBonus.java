@@ -1,4 +1,5 @@
 package fileManagment.EncryptedDecrypted;
+import Exceptions.IOFileException;
 import fileManagment.ImportingFiles.filesReader;
 
 import java.io.UnsupportedEncodingException;
@@ -10,7 +11,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 public class EncryptedContentBonus {
-    public static void encrypted(String path){
+    public static void encrypted(String path) throws IOFileException {
 
         //Creating KeyPair generator object
         KeyPairGenerator keyPairGen;

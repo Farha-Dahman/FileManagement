@@ -1,4 +1,6 @@
 package fileManagment.Database;
+import Exceptions.NullObjectException;
+import Exceptions.SQLQueryException;
 import fileManagment.ImportingFiles.TableCreator;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
@@ -11,7 +13,7 @@ public class DBconnection {
     private static final String USER_NAME = "root";
     private static final String PASSWORD = "";
     private static Connection connection= null;
-    public static Connection getConnection(){
+    public static Connection getConnection() throws NullObjectException, SQLQueryException {
         logger.info("Inside the connection function");
         try{
             if (connection == null) {
@@ -29,18 +31,18 @@ public class DBconnection {
                 }
             }
             return connection;
-        }catch (Exception e) {
-            logger.info("Exception!");
-            System.out.println(e.getMessage());
-            return connection;
+        } catch (SQLException e) {
+            throw new SQLQueryException("Failed on creating table");
+        } catch (ClassNotFoundException e) {
+            throw new NullObjectException("Failed in founding the class.");
         }
     }
-    public static void Close(){
+    public static void Close() throws NullObjectException, SQLQueryException {
         logger.info("Closed the connection");
         try {
             DBconnection.getConnection().close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            throw new SQLQueryException("Failed on getting the connection");
         }
     }
 }

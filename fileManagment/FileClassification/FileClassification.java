@@ -1,5 +1,6 @@
 package fileManagment.FileClassification;
 
+import Exceptions.SQLQueryException;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 
@@ -9,7 +10,7 @@ import java.sql.Statement;
 
 public class FileClassification {
     private static Logger logger = Logger.getLogger(Main.class);
-    public static void CreateTableClassification(Connection connection){
+    public static void CreateTableClassification(Connection connection) throws SQLQueryException {
         logger.info("Inside the Create Table Classification function");
         try(Statement stmt = connection.createStatement()){
             String sql = "create table customCategory(id int(10) primary key not null AUTO_INCREMENT ,nameClassification varchar(15),name varchar(15),type varchar(15),size varchar(15))";
@@ -20,7 +21,7 @@ public class FileClassification {
         }
         catch (SQLException e) {
             logger.info("SQLException");
-            e.printStackTrace();
+            throw new SQLQueryException("Failed on creaing classification table");
         }
 
     }

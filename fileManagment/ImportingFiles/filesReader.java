@@ -15,9 +15,9 @@ public class filesReader {
         logger.info("Inside the ReadingContentAsBytes function");
         File inputfile = new File(path);
         logger.info("create the File");
-        FileInputStream fileInputStream;
+        FileInputStream inputFile;
         try {
-            fileInputStream = new FileInputStream(inputFile);
+            inputFile = new FileInputStream(inputfile);
             logger.info("create the FileInputStream");
 
         } catch (FileNotFoundException e) {
@@ -32,7 +32,7 @@ public class filesReader {
             throw new IOFileException("Failed on reading content");
         }
         try {
-            fileInputStream.close();
+            inputFile.close();
             logger.info("close the FileInputStream");
         } catch (IOException e) {
             throw new IOFileException("Failed in closing input file");

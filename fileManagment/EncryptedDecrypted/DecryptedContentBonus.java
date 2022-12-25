@@ -1,4 +1,5 @@
 package fileManagment.EncryptedDecrypted;
+import Exceptions.IOFileException;
 import fileManagment.ImportingFiles.filesReader;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
@@ -8,7 +9,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 public class DecryptedContentBonus {
-    public static void Dycrept(String path){
+    public static void Dycrept(String path) throws IOFileException {
 
         //Creating KeyPair generator object
         KeyPairGenerator keyPairGen;
