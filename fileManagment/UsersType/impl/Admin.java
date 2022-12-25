@@ -3,9 +3,11 @@ import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.Database.IDBconnection;
+import fileManagment.DeleteFile.IdeleteFile;
 import fileManagment.DeleteFile.deleteFile;
 import fileManagment.FileClassification.printTableCustomCategory;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
+import fileManagment.FileRepository.ExportingFiles.Intf.IExportFile;
 
 
 import fileManagment.ImportingFiles.impl.FilesImporter;
@@ -61,7 +63,7 @@ public class Admin implements IAdmin {
                 }
                 case 2:{
                     logger.info("Inside the case 1");
-                    ExportFile exportfile = new ExportFile();
+                    IExportFile exportfile = new ExportFile();
                     exportfile.exportFile(connection);
                     break;
                 }
