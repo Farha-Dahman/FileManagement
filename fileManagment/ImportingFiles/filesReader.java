@@ -1,24 +1,43 @@
 package fileManagment.ImportingFiles;
 
+import Exceptions.IOFileException;
+import fileManagment.Main;
+import org.apache.log4j.Logger;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.Arrays;
 
 public class filesReader {
-    static File readingFiles(String path) {
-        File file = null;
+    private final static Logger logger = Logger.getLogger(Main.class);
+    public static byte[] ReadingContentAsBytes(String path) throws IOFileException {
+        logger.info("Inside the ReadingContentAsBytes function");
+        File inputfile = new File(path);
+        logger.info("create the File");
+        FileInputStream inputFile;
         try {
-            file = new File(path);
-            Scanner myReader = new Scanner(file);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
-                System.out.println(data);
-            }
-            myReader.close();
+            inputFile = new FileInputStream(inputfile);
+            logger.info("create the FileInputStream");
+
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            throw new IOFileException("Failed on creating input file stream.");
         }
-        return file;
+
+        byte[] ContentsArrayAsBytes = new byte[(int)inputfile.length()];
+        try {
+            inputFile.read(ContentsArrayAsBytes);
+            logger.info("read the array of byte");
+        } catch (IOException e) {
+            throw new IOFileException("Failed on reading content");
+        }
+        try {
+            inputFile.close();
+            logger.info("close the FileInputStream");
+        } catch (IOException e) {
+            throw new IOFileException("Failed in closing input file");
+        }
+        System.out.println(ContentsArrayAsBytes);
+        return ContentsArrayAsBytes;
     }
 }
