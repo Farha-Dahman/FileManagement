@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class filesReader {
-    private static Logger logger = Logger.getLogger(Main.class);
+    private final static Logger logger = Logger.getLogger(Main.class);
     public static byte[] ReadingContentAsBytes(String path){
         logger.info("Inside the ReadingContentAsBytes function");
         File inputfile = new File(path);
@@ -21,9 +21,9 @@ public class filesReader {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        byte[] arr = new byte[(int)inputfile.length()];
+        byte[] ContentsArrayAsBytes = new byte[(int)inputfile.length()];
         try {
-            inputFile.read(arr);
+            inputFile.read(ContentsArrayAsBytes);
             logger.info("read the array of byte");
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -35,7 +35,7 @@ public class filesReader {
             throw new RuntimeException(e);
         }
 
-        System.out.println(arr);
-        return arr;
+        System.out.println(ContentsArrayAsBytes);
+        return ContentsArrayAsBytes;
     }
 }
