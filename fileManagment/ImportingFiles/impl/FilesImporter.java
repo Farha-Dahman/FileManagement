@@ -50,10 +50,7 @@ public class FilesImporter implements IFileImporter {
             System.out.println("enc  " + copyfileName);
             IEncrypted iEncryptedContent =new EncryptedContentBonus();
             iEncryptedContent.Encrypt(path);
-            /*Decrypted.decrypted(copyfileName);
-            System.out.println("dec  " + copyfileName);
-            DecryptedContentBonus.Dycrept(path);
-*/
+
 
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             IimporterToDB iimporterToDB = new importerToDB();

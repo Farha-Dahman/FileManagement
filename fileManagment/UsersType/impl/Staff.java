@@ -1,4 +1,4 @@
-package fileManagment.UsersType;
+package fileManagment.UsersType.impl;
 
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
@@ -10,14 +10,15 @@ import fileManagment.ImportingFiles.intf.IFileImporter;
 import fileManagment.ImportingFiles.intf.ITableCreator;
 import fileManagment.ImportingFiles.impl.TableCreator;
 import fileManagment.Main;
+import fileManagment.UsersType.intf.IStaff;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Staff {
+public class Staff implements IStaff {
     private final static Logger logger = Logger.getLogger(Main.class);
-    public static void displayMenu(){
+    public void displayMenu(){
         logger.info("Inside the displayMenu function");
         System.out.println();
         System.out.println(
@@ -28,7 +29,7 @@ public class Staff {
         System.out.println();
     }
     public static int version = 0;
-    public static void staffOperation() throws SQLException, NullObjectException, IOFileException {
+    public void staffOperation() throws SQLException, NullObjectException, IOFileException {
         logger.info("Inside the staffOperation function");
         Scanner in = new Scanner(System.in);
         IDBconnection idBconnection = new DBconnection();

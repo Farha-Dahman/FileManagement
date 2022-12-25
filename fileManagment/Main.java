@@ -2,12 +2,15 @@ package fileManagment;
 
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
-import Exceptions.SQLQueryException;
-import fileManagment.UsersType.Admin;
-import fileManagment.UsersType.Reader;
-import fileManagment.UsersType.Staff;
+import fileManagment.UsersType.impl.Admin;
+import fileManagment.UsersType.impl.Reader;
+import fileManagment.UsersType.impl.Staff;
 import java.sql.SQLException;
 import java.util.Scanner;
+
+import fileManagment.UsersType.intf.IAdmin;
+import fileManagment.UsersType.intf.IReader;
+import fileManagment.UsersType.intf.IStaff;
 import org.apache.log4j.Logger;
 
 public class Main {
@@ -21,13 +24,16 @@ public class Main {
         System.out.println("Enter the Key to determine if you are an Admin, User or Reader : ");
         int key = in.nextInt();
         if(key == ADMIN){
-            Admin.AdminOperation();
+            IAdmin admin = new Admin();
+            admin.AdminOperation();
         }
         else if(key == STAFF){
-            Staff.staffOperation();
+            IStaff staff = new Staff();
+            staff.staffOperation();
         }
         else if(key == READER){
-            Reader.ReadingFile();
+            IReader reader = new Reader();
+            reader.ReadingFile();
         }
         else{
             System.out.println("The entered Key is incorrect");

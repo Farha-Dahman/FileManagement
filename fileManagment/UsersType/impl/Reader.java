@@ -1,4 +1,4 @@
-package fileManagment.UsersType;
+package fileManagment.UsersType.impl;
 
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
@@ -7,16 +7,17 @@ import fileManagment.ImportingFiles.intf.IcheckerVersions;
 import fileManagment.ImportingFiles.impl.checkVersions;
 import fileManagment.Main;
 import fileManagment.ReadFile.readFile;
+import fileManagment.UsersType.intf.IReader;
 import fileManagment.VersionControl.RollBack.LastVersion;
 import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Reader {
+public class Reader implements IReader {
     private final static Logger logger = Logger.getLogger(Main.class);
     private static int version=0;
-    public static void ReadingFile() throws SQLException, NullObjectException {
+    public void ReadingFile() throws SQLException, NullObjectException {
         IDBconnection idBconnection = new DBconnection();
         Scanner in = new Scanner(System.in);
         LastVersion iLastVersion=new LastVersion();

@@ -1,4 +1,4 @@
-package fileManagment.UsersType;
+package fileManagment.UsersType.impl;
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
@@ -15,15 +15,16 @@ import fileManagment.ImportingFiles.intf.IFileImporter;
 import fileManagment.ImportingFiles.intf.ITableCreator;
 import fileManagment.ImportingFiles.intf.IimporterToDB;
 import fileManagment.Main;
+import fileManagment.UsersType.intf.IAdmin;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class Admin {
+public class Admin implements IAdmin {
     private final static Logger logger = Logger.getLogger(Main.class);
-    public static void displayMenu(){
+    public void displayMenu(){
         logger.info("Inside the displayMenu function");
         System.out.println();
         System.out.println(
@@ -38,7 +39,7 @@ public class Admin {
         System.out.println();
     }
     private static int version = 0;
-    public static void AdminOperation() throws SQLException, NullObjectException, IOFileException {
+    public void AdminOperation() throws SQLException, NullObjectException, IOFileException {
         logger.info("Inside the AdminOperation function");
         Scanner in = new Scanner(System.in);
         deleteFile deleteFile=new deleteFile();
