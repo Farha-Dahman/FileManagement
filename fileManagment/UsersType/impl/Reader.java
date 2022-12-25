@@ -3,8 +3,8 @@ package fileManagment.UsersType.impl;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.Database.IDBconnection;
-import fileManagment.ImportingFiles.intf.IcheckerVersions;
-import fileManagment.ImportingFiles.impl.checkVersions;
+import fileManagment.ImportingFiles.impl.FilesChecker;
+import fileManagment.ImportingFiles.intf.IFileChecker;
 import fileManagment.Main;
 import fileManagment.ReadFile.readFile;
 import fileManagment.UsersType.intf.IReader;
@@ -26,8 +26,8 @@ public class Reader implements IReader {
         StringBuilder copyfileName = new StringBuilder(fileName);
         System.out.println("Enter Type of file you wont to read");
         String fileType=in.next();
-        IcheckerVersions icheckerVersions = new checkVersions();
-        int checkFileExist= icheckerVersions.fileExists(copyfileName,fileType,version,idBconnection.getConnection());
+        IFileChecker fileChecker = new FilesChecker();
+        int checkFileExist= fileChecker.fileExists(copyfileName,fileType,version,idBconnection.getConnection());
         if(checkFileExist !=0) {
             System.out.println("File exist\n");
             int lastversion=iLastVersion.lastVersion(idBconnection.getConnection(),fileName,fileType);
