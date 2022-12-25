@@ -42,7 +42,7 @@ public class Admin implements IAdmin {
     public void AdminOperation() throws SQLException, NullObjectException, IOFileException {
         logger.info("Inside the AdminOperation function");
         Scanner in = new Scanner(System.in);
-        deleteFile deleteFile=new deleteFile();
+        IdeleteFile ideleteFile=new deleteFile();
         IDBconnection idBconnection = new DBconnection();
         Connection connection = idBconnection.getConnection();
         System.out.println("Welcome,Admin");
@@ -69,7 +69,7 @@ public class Admin implements IAdmin {
                     logger.info("Inside the case 3");
                     System.out.println("Enter the name of the file you wont to delete:");
                     String FileName = in.next();
-                    deleteFile.deleteFileByName(FileName);
+                    ideleteFile.deleteFileByName(FileName);
                     break;
                 }
                 case 4:{
@@ -79,18 +79,18 @@ public class Admin implements IAdmin {
         if(classifyChoice==1){
         System.out.println("Enter the Type of the file you wont to delete:");
         String FileType = in.next();
-        deleteFile.deleteFileByType(FileType);
+        ideleteFile.deleteFileByType(FileType);
         }
         else if(classifyChoice==2){
         System.out.println("Enter the size(large,medium,small) of the file you wont to delete:");
         String FileSize = in.next();
-        deleteFile.deleteFileByType(FileSize);
+        ideleteFile.deleteFileBySize(FileSize);
         }
         else if(classifyChoice==3){
         printTableCustomCategory.printTableClassification(connection);
         System.out.println("Enter the name of customClassification:");
         String nameClassification=in.next();
-        deleteFile.deleteBycustomCategory(nameClassification);
+        ideleteFile.deleteBycustomCategory(nameClassification);
         }
         else{
         System.out.println("The entered number is incorrect,please reenter 1 or 2 or 3.");
