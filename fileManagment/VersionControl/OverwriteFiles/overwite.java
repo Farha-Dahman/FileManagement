@@ -1,13 +1,13 @@
-package fileManagment.OverwriteFiles;
+package fileManagment.VersionControl.OverwriteFiles;
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
-import fileManagment.ImportingFiles.impl.FilesChecker;
-import fileManagment.ImportingFiles.impl.StoreContentToFile;
-import fileManagment.ImportingFiles.impl.filesReader;
-import fileManagment.ImportingFiles.intf.IFileChecker;
-import fileManagment.ImportingFiles.intf.IFileReader;
-import fileManagment.ImportingFiles.intf.IStoreContentToFile;
+import fileManagment.FileRepository.ImportingFiles.impl.FilesChecker;
+import fileManagment.FileRepository.ImportingFiles.impl.StoreContentToFile;
+import fileManagment.FileRepository.ImportingFiles.impl.filesReader;
+import fileManagment.FileRepository.ImportingFiles.intf.IFileChecker;
+import fileManagment.FileRepository.ImportingFiles.intf.IFileReader;
+import fileManagment.FileRepository.ImportingFiles.intf.IStoreContentToFile;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;

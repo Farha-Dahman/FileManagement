@@ -1,7 +1,7 @@
-package fileManagment.ImportingFiles.impl;
+package fileManagment.FileRepository.ImportingFiles.impl;
 import Exceptions.SQLQueryException;
 
-import fileManagment.ImportingFiles.intf.ITableCreator;
+import fileManagment.FileRepository.ImportingFiles.intf.ITableCreator;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 

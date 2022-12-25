@@ -5,10 +5,11 @@ import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.Database.IDBconnection;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
-import fileManagment.ImportingFiles.impl.FilesImporter;
-import fileManagment.ImportingFiles.intf.IFileImporter;
-import fileManagment.ImportingFiles.intf.ITableCreator;
-import fileManagment.ImportingFiles.impl.TableCreator;
+import fileManagment.FileRepository.ExportingFiles.Intf.IExportFile;
+import fileManagment.FileRepository.ImportingFiles.impl.FilesImporter;
+import fileManagment.FileRepository.ImportingFiles.intf.IFileImporter;
+import fileManagment.FileRepository.ImportingFiles.intf.ITableCreator;
+import fileManagment.FileRepository.ImportingFiles.impl.TableCreator;
 import fileManagment.Main;
 import fileManagment.UsersType.intf.IStaff;
 import org.apache.log4j.Logger;
@@ -50,7 +51,7 @@ public class Staff implements IStaff {
                 }
                 case 2 : {
                     logger.info("Inside the case 2");
-                    ExportFile exportfile = new ExportFile();
+                    IExportFile exportfile = new ExportFile();
                     exportfile.exportFile(connection);
                 }
                 case -1: {

@@ -1,8 +1,8 @@
-package fileManagment.ImportingFiles.impl;
+package fileManagment.FileRepository.ImportingFiles.impl;
 import Exceptions.IOFileException;
 import Exceptions.SQLQueryException;
 import Exceptions.NullObjectException;
-import fileManagment.ImportingFiles.intf.IStoreContentToFile;
+import fileManagment.FileRepository.ImportingFiles.intf.IStoreContentToFile;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.io.FileNotFoundException;

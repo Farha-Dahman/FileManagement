@@ -1,4 +1,4 @@
-package fileManagment.DeleteFile;
+package fileManagment.FileRepository.DeleteFile;
 
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;

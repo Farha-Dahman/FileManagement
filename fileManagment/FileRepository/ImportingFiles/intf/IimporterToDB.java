@@ -1,4 +1,4 @@
-package fileManagment.ImportingFiles.intf;
+package fileManagment.FileRepository.ImportingFiles.intf;
 
 import Exceptions.IOFileException;
 import Exceptions.SQLQueryException;

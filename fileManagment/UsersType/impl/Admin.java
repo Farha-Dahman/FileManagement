@@ -3,17 +3,19 @@ import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.Database.IDBconnection;
-import fileManagment.DeleteFile.deleteFile;
+import fileManagment.FileRepository.DeleteFile.IdeleteFile;
+import fileManagment.FileRepository.DeleteFile.deleteFile;
 import fileManagment.FileClassification.printTableCustomCategory;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
+import fileManagment.FileRepository.ExportingFiles.Intf.IExportFile;
 
 
-import fileManagment.ImportingFiles.impl.FilesImporter;
-import fileManagment.ImportingFiles.impl.TableCreator;
-import fileManagment.ImportingFiles.impl.importerToDB;
-import fileManagment.ImportingFiles.intf.IFileImporter;
-import fileManagment.ImportingFiles.intf.ITableCreator;
-import fileManagment.ImportingFiles.intf.IimporterToDB;
+import fileManagment.FileRepository.ImportingFiles.impl.FilesImporter;
+import fileManagment.FileRepository.ImportingFiles.impl.TableCreator;
+import fileManagment.FileRepository.ImportingFiles.impl.importerToDB;
+import fileManagment.FileRepository.ImportingFiles.intf.IFileImporter;
+import fileManagment.FileRepository.ImportingFiles.intf.ITableCreator;
+import fileManagment.FileRepository.ImportingFiles.intf.IimporterToDB;
 import fileManagment.Main;
 import fileManagment.UsersType.intf.IAdmin;
 import org.apache.log4j.Logger;
@@ -61,7 +63,7 @@ public class Admin implements IAdmin {
                 }
                 case 2:{
                     logger.info("Inside the case 1");
-                    ExportFile exportfile = new ExportFile();
+                    IExportFile exportfile = new ExportFile();
                     exportfile.exportFile(connection);
                     break;
                 }

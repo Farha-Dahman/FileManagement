@@ -1,4 +1,4 @@
-package fileManagment.ReadFile;
+package fileManagment.FileRepository.ReadFile;
 
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;

@@ -1,9 +1,10 @@
 package fileManagment.FileRepository.ExportingFiles;
 
 import Exceptions.NullObjectException;
+import fileManagment.FileRepository.ExportingFiles.Intf.IExportFile;
 import fileManagment.FileRepository.ExportingFiles.Intf.InputInfo;
 import fileManagment.Main;
-import fileManagment.VersionControl.RollBack.IlastVersion;
+import fileManagment.VersionControl.RollBack.intf.IlastVersion;
 import fileManagment.VersionControl.RollBack.LastVersion;
 import org.apache.log4j.Logger;
 
@@ -14,9 +15,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ExportFile {
+public class ExportFile implements IExportFile {
     private static Logger logger = Logger.getLogger(Main.class);
-    public static void exportFile(Connection connection) throws SQLException, NullObjectException {
+    public void exportFile(Connection connection) throws SQLException, NullObjectException {
         logger.info("Inside the exportFile function");
         InputInfo inputInfo = new InputFileInfo();
         ResultSet resultSet = inputInfo.insertInfo(connection);

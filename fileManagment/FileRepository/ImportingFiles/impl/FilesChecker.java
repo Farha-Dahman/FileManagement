@@ -3,6 +3,9 @@ import Exceptions.SQLQueryException;
 import fileManagment.ImportingFiles.intf.IFileChecker;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
+package fileManagment.FileRepository.ImportingFiles.impl;
+import fileManagment.FileRepository.ImportingFiles.intf.IFileChecker;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
