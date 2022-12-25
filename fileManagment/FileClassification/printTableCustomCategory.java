@@ -26,15 +26,15 @@ public class printTableCustomCategory {
                 String filename = resultSet.getString("name");
                 String fileType = resultSet.getString("type");
                 String fileSize = resultSet.getString("size");
-                if(!filename.equals("null")&&!filename.equals("Null")){
+                if(!filename.equals("null")){
                     logger.info("file name: " + filename);
                     System.out.println("Name of file : "+filename);
                 }
-                if(!fileType.equals("null")&&!fileType.equals("Null")){
+                if(!fileType.equals("null")){
                     logger.info("file type: " + fileType);
                     System.out.println("Type of file : "+fileType);
                 }
-                if(!fileSize.equals("null")&&!fileSize.equals("Null")){
+                if(!fileSize.equals("null")){
                     logger.info("file size: " + fileSize);
                     System.out.println("Size of file : "+fileSize);
                 }
