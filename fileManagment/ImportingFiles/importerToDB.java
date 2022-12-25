@@ -11,22 +11,23 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class importerToDB {
-    private static Logger logger = Logger.getLogger(Main.class);
+    private final static Logger logger = Logger.getLogger(Main.class);
+
+    private static final String INSERTFILESINFOQUERY = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
     public static void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) {
         logger.info("Inside the importingInfoToDB function");
         try {
             System.out.println("Inserting records into the table...");
-            String query = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
             logger.info("create the query");
-            PreparedStatement preparedStmt = connection.prepareStatement(query);
+            PreparedStatement preparedStmt = connection.prepareStatement(INSERTFILESINFOQUERY);
             String fileName = name.toString();
             preparedStmt.setString(1, fileName);
             preparedStmt.setString(2, type);
             preparedStmt.setString(3, size);
             preparedStmt.setFloat(4, version);
             byte[] content = filesReader.ReadingContentAsBytes(file.getPath());
-            Blob blob = new SerialBlob(content);
-            preparedStmt.setBlob(5,blob);
+            Blob ContentBlob = new SerialBlob(content);
+            preparedStmt.setBlob(5,ContentBlob);
             preparedStmt.execute();
             logger.info("execute the query");
             System.out.println("success");

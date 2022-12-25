@@ -8,14 +8,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class TableCreator {
-    private static Logger logger = Logger.getLogger(Main.class);
+    private final static Logger logger = Logger.getLogger(Main.class);
+    private static final String CREATETABLEQUERY= "create table FILESINFO(id int(10) primary key not null AUTO_INCREMENT ,name varchar(35)  not null,type varchar(15),size varchar(10), version int(2),content BLOB)";
     public static void creatingTableForFilesInfo(Connection connection) {
         logger.info("Inside the creatingTableForFilesInfo function");
         try(Statement statement = connection.createStatement()){
-
-            String sql = "create table FILESINFO(id int(10) primary key not null AUTO_INCREMENT ,name varchar(35)  not null,type varchar(15),size varchar(100), version int(2),content BLOB)";
-            logger.info("create the sql query");
-            statement.executeUpdate(sql);
+            logger.info("create the sql query (creating the table)");
+            statement.executeUpdate(CREATETABLEQUERY);
             System.out.println("Created table in given database...");
         }
         catch (SQLException e) {
