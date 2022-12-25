@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 public class ExportFile {
     private static Logger logger = Logger.getLogger(Main.class);
-    public void exportFile(Connection connection) throws SQLException {
+    public static void exportFile(Connection connection) throws SQLException {
         logger.info("Inside the exportFile function");
         InputInfo inputInfo = new InputFileInfo();
         ResultSet resultSet = inputInfo.insertInfo(connection);

@@ -36,6 +36,11 @@ public class InputFileInfo implements InputInfo {
             logger.info("user choose size");
             System.out.print("Input File Size: ");
             resultSet = iapis.getBySize(connection, user.nextLine().trim());
+        } else if (Choose.equals("custom")) {
+            logger.info("user choose custom");
+            System.out.print("Input custom name: ");
+
+
         }
         logger.info("returned the resultSet");
         return resultSet;
