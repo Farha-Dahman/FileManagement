@@ -7,7 +7,6 @@ import fileManagment.ImportingFiles.importerToDB;
 import fileManagment.ImportingFiles.TableCreator;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
-import fileManagment.FileClassification.printTableCustomCategory;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -28,7 +27,7 @@ public class Admin {
         );
         System.out.println();
     }
-    public static  int version=0;
+    public static int version = 0;
     public static void AdminOperation() throws SQLException {
         logger.info("Inside the AdminOperation function");
         Scanner in = new Scanner(System.in);
