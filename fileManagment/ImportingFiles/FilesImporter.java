@@ -1,4 +1,8 @@
 package fileManagment.ImportingFiles;
+import fileManagment.EncryptedDecrypted.Decrypted;
+import fileManagment.EncryptedDecrypted.DecryptedContentBonus;
+import fileManagment.EncryptedDecrypted.Encrypted;
+import fileManagment.EncryptedDecrypted.EncryptedContentBonus;
 
 import fileManagment.Main;
 import org.apache.log4j.Logger;
@@ -14,7 +18,7 @@ public class FilesImporter {
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;
         StringBuilder copyfileName ;
-        boolean c;
+        int c;
             System.out.println("Please enter file path: ");
             path = sc.next();
             logger.info("Enter the file path : " + path);
@@ -30,11 +34,20 @@ public class FilesImporter {
             copyfileName = new StringBuilder(fileName);
             logger.info("created the StringBuilder");
             System.out.println(copyfileName);
-            c = checkVersions.fileExists(copyfileName,fileType,version,connection);
-            while (c){
+            c = FilesChecker.fileExists(copyfileName,fileType,version,connection);
+            while (c!= 0){
                 version++;
-                c = checkVersions.fileExists(copyfileName,fileType,version,connection);
+                c = FilesChecker.fileExists(copyfileName,fileType,version,connection);
             }
+
+            Encrypted.encrypted(copyfileName);
+            System.out.println("enc  " + copyfileName);
+            EncryptedContentBonus.encrypted(path);
+            Decrypted.decrypted(copyfileName);
+            System.out.println("dec  " + copyfileName);
+            DecryptedContentBonus.Dycrept(path);
+
+
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             importerToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
             if(version != 0) {
