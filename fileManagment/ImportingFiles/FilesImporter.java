@@ -1,4 +1,8 @@
 package fileManagment.ImportingFiles;
+import fileManagment.EncryptedDecrypted.Decrypted;
+import fileManagment.EncryptedDecrypted.DecryptedContentBonus;
+import fileManagment.EncryptedDecrypted.Encrypted;
+import fileManagment.EncryptedDecrypted.EncryptedContentBonus;
 
 import java.io.*;
 import java.sql.*;
@@ -27,6 +31,15 @@ public class FilesImporter {
                 version++;
                 c = checkVersions.fileExists(copyfileName,fileType,version,connection);
             }
+
+            Encrypted.encrypted(copyfileName);
+            System.out.println("enc  " + copyfileName);
+            EncryptedContentBonus.encrypted(path);
+            Decrypted.decrypted(copyfileName);
+            System.out.println("dec  " + copyfileName);
+            DecryptedContentBonus.Dycrept(path);
+
+
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             importerToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
             if(version !=0)copyfileName.replace(fileName.length(),fileName.length()+3,"(" + version + ")");
