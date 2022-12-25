@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class checkVersions {
     private static Logger logger = Logger.getLogger(Main.class);
-    static boolean fileExists(StringBuilder name, String type,int version, Connection connection) throws SQLQueryException {
+    public static boolean fileExists(StringBuilder name, String type, int version, Connection connection) throws SQLQueryException {
         logger.info("Inside the fileExists function");
         String fileName = name.toString();
         String exists = null;
