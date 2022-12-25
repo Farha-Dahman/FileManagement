@@ -1,5 +1,7 @@
 package fileManagment.EncryptedDecrypted.intf;
 
+import Exceptions.IOFileException;
+
 public interface IEncrypted {
-    void encrypted(StringBuilder name);
+    void Encrypt(String name) throws IOFileException;
 }

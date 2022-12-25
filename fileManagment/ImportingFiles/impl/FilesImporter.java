@@ -46,9 +46,10 @@ public class FilesImporter implements IFileImporter {
             }
 
             IEncrypted iEncrypted =new Encrypted();
-            iEncrypted.encrypted(copyfileName);
+            iEncrypted.Encrypt(copyfileName.toString());
             System.out.println("enc  " + copyfileName);
-            EncryptedContentBonus.encrypted(path);
+            IEncrypted iEncryptedContent =new EncryptedContentBonus();
+            iEncryptedContent.Encrypt(path);
             /*Decrypted.decrypted(copyfileName);
             System.out.println("dec  " + copyfileName);
             DecryptedContentBonus.Dycrept(path);
