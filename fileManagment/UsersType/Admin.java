@@ -5,9 +5,10 @@ import fileManagment.FileRepository.ExportingFiles.ExportFile;
 import fileManagment.ImportingFiles.FilesImporter;
 import fileManagment.ImportingFiles.importerToDB;
 import fileManagment.ImportingFiles.TableCreator;
+
 import fileManagment.Main;
 import org.apache.log4j.Logger;
-
+import fileManagment.FileClassification.printTableCustomCategory;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -23,11 +24,12 @@ public class Admin {
                         "3. Enter 3 to delete file by name\n"+
                         "4. Enter 4 to delete by classify \n"+
                         "5. Enter 5 to create custom category classification\n"+
-                        "6. Enter -1 to end program"
+                        "6. Enter 6 to show all available classification\n"+
+                        "7. Enter  -1 to end program"
         );
         System.out.println();
     }
-    public static int version = 0;
+    public static  int version=0;
     public static void AdminOperation() throws SQLException {
         logger.info("Inside the AdminOperation function");
         Scanner in = new Scanner(System.in);
@@ -92,6 +94,10 @@ public class Admin {
                     System.out.println("Enter name of classification:");
                     String classificationName=in.next();
                     importerToDB.importCustomCategoryToDB(classificationName,FileName,FileType,FileSize,connection);
+                    break;
+                }
+                case 6:{
+                    printTableCustomCategory.printTableClassification(connection);
                     break;
                 }
                 case -1: {
