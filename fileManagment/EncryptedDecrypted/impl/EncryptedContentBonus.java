@@ -1,7 +1,7 @@
-package fileManagment.EncryptedDecrypted;
+package fileManagment.EncryptedDecrypted.impl;
 import Exceptions.IOFileException;
 import fileManagment.ImportingFiles.intf.IFileReader;
-import fileManagment.ImportingFiles.filesReader;
+import fileManagment.ImportingFiles.impl.filesReader;
 
 import java.io.UnsupportedEncodingException;
 import java.security.*;

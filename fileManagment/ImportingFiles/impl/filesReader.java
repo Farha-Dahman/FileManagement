@@ -1,4 +1,4 @@
-package fileManagment.ImportingFiles;
+package fileManagment.ImportingFiles.impl;
 
 import Exceptions.IOFileException;
 import fileManagment.ImportingFiles.intf.IFileReader;

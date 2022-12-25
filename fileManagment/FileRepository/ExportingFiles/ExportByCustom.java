@@ -3,6 +3,7 @@ package fileManagment.FileRepository.ExportingFiles;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
 import fileManagment.Database.DBconnection;
+import fileManagment.Database.IDBconnection;
 import fileManagment.FileRepository.ExportingFiles.Intf.Iapis;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 public class ExportByCustom {
     private static Logger logger = Logger.getLogger(Main.class);
     public static void exportByCustom(Connection connection, ResultSet resultSet) throws SQLQueryException, NullObjectException {
+        IDBconnection idBconnection = new DBconnection();
         logger.info("Inside the exportByCustom function");
         Iapis iapis = new apis();
         String fileName = null;
@@ -29,7 +31,7 @@ public class ExportByCustom {
 
                 if (!fileName.equals("null") && !fileType.equals("null") && !fileSize.equals("null")) {
                     String query = "select * from filesinfo WHERE name = ? and type=? and size=?";
-                    PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(query);
+                    PreparedStatement preparedStatement = idBconnection.getConnection().prepareStatement(query);
                     preparedStatement.setString(1, fileName);
                     preparedStatement.setString(2, fileType);
                     preparedStatement.setString(3, fileSize);
@@ -37,21 +39,21 @@ public class ExportByCustom {
 
                 } else if (!fileName.equals("null") && !fileType.equals("null") && fileSize.equals("null")) {
                     String query = "select * from filesinfo WHERE name = ? and type=?";
-                    PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(query);
+                    PreparedStatement preparedStatement = idBconnection.getConnection().prepareStatement(query);
                     preparedStatement.setString(1, fileName);
                     preparedStatement.setString(2, fileType);
                     preparedStatement.executeQuery();
 
                 } else if (!fileName.equals("null") && !fileSize.equals("null") && fileType.equals("null")) {
                     String query = "select * from filesinfo WHERE name = ? and size=?";
-                    PreparedStatement pstmtdelete = DBconnection.getConnection().prepareStatement(query);
+                    PreparedStatement pstmtdelete = idBconnection.getConnection().prepareStatement(query);
                     pstmtdelete.setString(1, fileName);
                     pstmtdelete.setString(2, fileSize);
                     pstmtdelete.executeQuery();
 
                 } else if (!fileType.equals("null") && !fileSize.equals("null") && fileName.equals("null")) {
                     String query = "select * from filesinfo WHERE type = ? and size=?";
-                    PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(query);
+                    PreparedStatement preparedStatement = idBconnection.getConnection().prepareStatement(query);
                     preparedStatement.setString(1, fileType);
                     preparedStatement.setString(2, fileSize);
                     preparedStatement.executeQuery();

@@ -3,11 +3,12 @@ package fileManagment.UsersType;
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
+import fileManagment.Database.IDBconnection;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
-import fileManagment.ImportingFiles.FilesImporter;
+import fileManagment.ImportingFiles.impl.FilesImporter;
 import fileManagment.ImportingFiles.intf.IFileImporter;
 import fileManagment.ImportingFiles.intf.ITableCreator;
-import fileManagment.ImportingFiles.TableCreator;
+import fileManagment.ImportingFiles.impl.TableCreator;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
@@ -30,7 +31,8 @@ public class Staff {
     public static void staffOperation() throws SQLException, NullObjectException, IOFileException {
         logger.info("Inside the staffOperation function");
         Scanner in = new Scanner(System.in);
-        Connection connection = DBconnection.getConnection();
+        IDBconnection idBconnection = new DBconnection();
+        Connection connection = idBconnection.getConnection();
         System.out.println("Welcome,Staff");
         while (true) {
             displayMenu();
@@ -52,7 +54,7 @@ public class Staff {
                 }
                 case -1: {
                     logger.info("Inside the case -1");
-                    DBconnection.Close();
+                    idBconnection.Close();
                     System.out.println("end of program");
                     return;
                 }

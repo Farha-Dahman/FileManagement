@@ -1,4 +1,4 @@
-package fileManagment.ImportingFiles;
+package fileManagment.ImportingFiles.impl;
 import Exceptions.SQLQueryException;
 
 import fileManagment.ImportingFiles.intf.ITableCreator;

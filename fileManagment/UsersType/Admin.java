@@ -2,12 +2,15 @@ package fileManagment.UsersType;
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
+import fileManagment.Database.IDBconnection;
 import fileManagment.DeleteFile.deleteFile;
 import fileManagment.FileClassification.printTableCustomCategory;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
-import fileManagment.ImportingFiles.*;
 
 
+import fileManagment.ImportingFiles.impl.FilesImporter;
+import fileManagment.ImportingFiles.impl.TableCreator;
+import fileManagment.ImportingFiles.impl.importerToDB;
 import fileManagment.ImportingFiles.intf.IFileImporter;
 import fileManagment.ImportingFiles.intf.ITableCreator;
 import fileManagment.ImportingFiles.intf.IimporterToDB;
@@ -39,7 +42,8 @@ public class Admin {
         logger.info("Inside the AdminOperation function");
         Scanner in = new Scanner(System.in);
         deleteFile deleteFile=new deleteFile();
-        Connection connection = DBconnection.getConnection();
+        IDBconnection idBconnection = new DBconnection();
+        Connection connection = idBconnection.getConnection();
         System.out.println("Welcome,Admin");
         while (true) {
             displayMenu();
@@ -114,7 +118,7 @@ public class Admin {
                 }
                 case -1: {
                     logger.info("Inside the case -1");
-                    DBconnection.Close();
+                    idBconnection.Close();
                     System.out.println("end of program");
                     return;
                 }

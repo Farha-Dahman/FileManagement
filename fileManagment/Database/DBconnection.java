@@ -2,19 +2,19 @@ package fileManagment.Database;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
 import fileManagment.ImportingFiles.intf.ITableCreator;
-import fileManagment.ImportingFiles.TableCreator;
+import fileManagment.ImportingFiles.impl.TableCreator;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
 
-public class DBconnection {
+public class DBconnection implements IDBconnection{
     private final static Logger logger = Logger.getLogger(Main.class);
     private static final String LINK_OF_DATABASE = "jdbc:mysql://localhost:3306/fileManagement";
     private static final String USER_NAME = "root";
     private static final String PASSWORD = "";
     private static Connection connection= null;
-    public static Connection getConnection() throws NullObjectException, SQLQueryException {
+    public Connection getConnection() throws NullObjectException, SQLQueryException {
         logger.debug("Enter to getConnection function.");
         logger.info("Inside the connection function");
         try{
@@ -41,11 +41,12 @@ public class DBconnection {
             throw new NullObjectException("Failed in founding the class.");
         }
     }
-    public static void Close() throws NullObjectException, SQLQueryException {
+    public void Close() throws NullObjectException, SQLQueryException {
         logger.debug("Enter to Close function.");
         logger.info("Closed the connection");
         try {
-            DBconnection.getConnection().close();
+            IDBconnection idBconnection = new DBconnection();
+            idBconnection.getConnection().close();
         } catch (SQLException e) {
             throw new SQLQueryException("Failed on getting the connection");
         }

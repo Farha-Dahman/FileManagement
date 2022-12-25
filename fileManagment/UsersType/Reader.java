@@ -2,8 +2,9 @@ package fileManagment.UsersType;
 
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
+import fileManagment.Database.IDBconnection;
 import fileManagment.ImportingFiles.intf.IcheckerVersions;
-import fileManagment.ImportingFiles.checkVersions;
+import fileManagment.ImportingFiles.impl.checkVersions;
 import fileManagment.Main;
 import fileManagment.ReadFile.readFile;
 import fileManagment.VersionControl.RollBack.LastVersion;
@@ -16,6 +17,7 @@ public class Reader {
     private final static Logger logger = Logger.getLogger(Main.class);
     private static int version=0;
     public static void ReadingFile() throws SQLException, NullObjectException {
+        IDBconnection idBconnection = new DBconnection();
         Scanner in = new Scanner(System.in);
         LastVersion iLastVersion=new LastVersion();
         System.out.println("Enter name of file you wont to read");
@@ -24,10 +26,10 @@ public class Reader {
         System.out.println("Enter Type of file you wont to read");
         String fileType=in.next();
         IcheckerVersions icheckerVersions = new checkVersions();
-        int checkFileExist= icheckerVersions.fileExists(copyfileName,fileType,version,DBconnection.getConnection());
+        int checkFileExist= icheckerVersions.fileExists(copyfileName,fileType,version,idBconnection.getConnection());
         if(checkFileExist !=0) {
             System.out.println("File exist\n");
-            int lastversion=iLastVersion.lastVersion(DBconnection.getConnection(),fileName,fileType);
+            int lastversion=iLastVersion.lastVersion(idBconnection.getConnection(),fileName,fileType);
             System.out.println("Content of File Version : "+lastversion);
             System.out.println(readFile.ReadFile(fileName,lastversion));
 

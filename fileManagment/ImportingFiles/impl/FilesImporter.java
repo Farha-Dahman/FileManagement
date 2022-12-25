@@ -1,11 +1,10 @@
-package fileManagment.ImportingFiles;
+package fileManagment.ImportingFiles.impl;
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
-import fileManagment.EncryptedDecrypted.Decrypted;
-import fileManagment.EncryptedDecrypted.DecryptedContentBonus;
-import fileManagment.EncryptedDecrypted.Encrypted;
-import fileManagment.EncryptedDecrypted.EncryptedContentBonus;
+import fileManagment.EncryptedDecrypted.impl.Encrypted;
+import fileManagment.EncryptedDecrypted.impl.EncryptedContentBonus;
+import fileManagment.EncryptedDecrypted.intf.IEncrypted;
 import fileManagment.ImportingFiles.intf.IFileChecker;
 import fileManagment.ImportingFiles.intf.IFileImporter;
 import fileManagment.ImportingFiles.intf.IFileSaver;
@@ -46,13 +45,14 @@ public class FilesImporter implements IFileImporter {
                 c = iFileChecker.fileExists(copyfileName,fileType,version,connection);
             }
 
-            Encrypted.encrypted(copyfileName);
+            IEncrypted iEncrypted =new Encrypted();
+            iEncrypted.encrypted(copyfileName);
             System.out.println("enc  " + copyfileName);
             EncryptedContentBonus.encrypted(path);
-            Decrypted.decrypted(copyfileName);
+            /*Decrypted.decrypted(copyfileName);
             System.out.println("dec  " + copyfileName);
             DecryptedContentBonus.Dycrept(path);
-
+*/
 
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             IimporterToDB iimporterToDB = new importerToDB();

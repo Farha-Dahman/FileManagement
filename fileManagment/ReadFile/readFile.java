@@ -2,6 +2,7 @@ package fileManagment.ReadFile;
 
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
+import fileManagment.Database.IDBconnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,8 @@ public class readFile {
         PreparedStatement pstmt = null;
         try
         {
-            pstmt = DBconnection.getConnection().prepareStatement(sql);
+            IDBconnection idBconnection = new DBconnection();
+            pstmt = idBconnection.getConnection().prepareStatement(sql);
             pstmt.setString(1,fileName);
             pstmt.setInt(2,Version);
             ResultSet rs = pstmt.executeQuery();

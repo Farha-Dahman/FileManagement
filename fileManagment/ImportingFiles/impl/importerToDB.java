@@ -1,6 +1,7 @@
-package fileManagment.ImportingFiles;
+package fileManagment.ImportingFiles.impl;
 import Exceptions.IOFileException;
 import Exceptions.SQLQueryException;
+import fileManagment.ImportingFiles.impl.filesReader;
 import fileManagment.ImportingFiles.intf.IFileReader;
 import fileManagment.ImportingFiles.intf.IimporterToDB;
 import fileManagment.Main;

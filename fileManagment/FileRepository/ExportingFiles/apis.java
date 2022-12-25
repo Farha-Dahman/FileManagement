@@ -2,6 +2,7 @@ package fileManagment.FileRepository.ExportingFiles;
 
 import Exceptions.SQLQueryException;
 import fileManagment.Database.DBconnection;
+import fileManagment.Database.IDBconnection;
 import fileManagment.FileRepository.ExportingFiles.Intf.Iapis;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
@@ -70,7 +71,8 @@ public class apis implements Iapis {
         ResultSet resultSet = null;
         String sql = "SELECT name,type,size FROM customCategory WHERE nameClassification=?";
         try {
-            PreparedStatement preparedStatement = DBconnection.getConnection().prepareStatement(sql);
+            IDBconnection idBconnection = new DBconnection();
+            PreparedStatement preparedStatement = idBconnection.getConnection().prepareStatement(sql);
             preparedStatement.setString(1,nameClassification);
             resultSet = preparedStatement.executeQuery();
             ExportByCustom.exportByCustom(connection,resultSet);
