@@ -1,5 +1,8 @@
 package fileManagment.ImportingFiles;
 
+import Exceptions.IOFileException;
+import Exceptions.NullObjectException;
+import Exceptions.SQLQueryException;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.io.*;
@@ -7,7 +10,7 @@ import java.sql.*;
 
 public class fileSaver {
     private static Logger logger = Logger.getLogger(Main.class);
-    static void savingFiles(StringBuilder name, Connection connection) {
+    static void savingFiles(StringBuilder name, Connection connection) throws IOFileException, SQLQueryException, NullObjectException {
         logger.info("Inside the savingFiles function");
         System.out.println("name is : " + name);
         logger.info("Name of file" + name);
@@ -23,7 +26,7 @@ public class fileSaver {
                 System.out.println("File "+ absoluteFilePath +" already exists");
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IOFileException("Failed on create file at a specific path ");
         }
         logger.info("Go to StoreContentToFile class");
         StoreContentToFile.storingContent(connection,absoluteFilePath);

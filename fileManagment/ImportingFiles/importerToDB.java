@@ -1,8 +1,8 @@
 package fileManagment.ImportingFiles;
-
+import Exceptions.IOFileException;
+import Exceptions.SQLQueryException;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
-
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.File;
 import java.sql.Blob;
@@ -12,9 +12,8 @@ import java.sql.SQLException;
 
 public class importerToDB {
     private final static Logger logger = Logger.getLogger(Main.class);
-
     private static final String INSERTFILESINFOQUERY = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
-    public static void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) {
+    public static void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) throws SQLQueryException, IOFileException {
         logger.info("Inside the importingInfoToDB function");
         try {
             System.out.println("Inserting records into the table...");
@@ -24,8 +23,9 @@ public class importerToDB {
             preparedStmt.setString(1, fileName);
             preparedStmt.setString(2, type);
             preparedStmt.setString(3, size);
-            preparedStmt.setFloat(4, version);
+            preparedStmt.setInt(4, version);
             byte[] content = filesReader.ReadingContentAsBytes(file.getPath());
+
             Blob ContentBlob = new SerialBlob(content);
             preparedStmt.setBlob(5,ContentBlob);
             preparedStmt.execute();
@@ -49,7 +49,7 @@ public class importerToDB {
             System.out.println("success");
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLQueryException("Import file information to DB failed ");
         }
     }
 }

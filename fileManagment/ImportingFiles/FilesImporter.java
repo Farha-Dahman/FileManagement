@@ -1,19 +1,19 @@
 package fileManagment.ImportingFiles;
+import Exceptions.IOFileException;
+import Exceptions.SQLQueryException;
 import fileManagment.EncryptedDecrypted.Decrypted;
 import fileManagment.EncryptedDecrypted.DecryptedContentBonus;
 import fileManagment.EncryptedDecrypted.Encrypted;
 import fileManagment.EncryptedDecrypted.EncryptedContentBonus;
-
 import fileManagment.Main;
 import org.apache.log4j.Logger;
-
 import java.io.*;
 import java.sql.*;
 import java.util.Scanner;
 
 public class FilesImporter {
     private static Logger logger = Logger.getLogger(Main.class);
-    public static void importFiles(Connection connection, int version){
+    public static void importFiles(Connection connection, int version) throws SQLQueryException, IOFileException{
         logger.info("Inside the importFiles function");
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;
