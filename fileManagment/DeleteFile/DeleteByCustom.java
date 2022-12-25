@@ -1,5 +1,8 @@
 package fileManagment.DeleteFile;
-import fileManagment.DBconnection;
+
+import Exceptions.NullObjectException;
+import Exceptions.SQLQueryException;
+import fileManagment.Database.DBconnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,11 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 public class DeleteByCustom {
 
-    public static void deleteByCustom(Connection connection, ResultSet resultSet) throws SQLException {
+    public static void deleteByCustom(Connection connection, ResultSet resultSet) throws SQLException, NullObjectException {
         deleteFile deleteFile=new deleteFile();
         String fileName=null;
         String fileType=null;
         String fileSize=null;
+        try{
         while (resultSet.next()) {
             fileName = resultSet.getString(1);
             fileType= resultSet.getString(2);
@@ -50,5 +54,11 @@ public class DeleteByCustom {
             deleteFile.deleteFileBySize(fileSize);
         }
         System.out.println("File deleted..");
+        }
+     catch (SQLException e) {
+        throw new SQLQueryException("Failed in deleting files by custom from DB ");
+    } catch (NullPointerException e) {
+        throw new NullObjectException("Failed on getting the connection ");
+    }
     }
 }

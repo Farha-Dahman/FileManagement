@@ -17,25 +17,25 @@ public class deleteFile implements IdeleteFile{
             pstmt.executeUpdate();
             System.out.println("File deleted..");
         }
-        catch (SQLException e){
+        catch (SQLException | NullObjectException e){
             logger.info("SQLException");
             throw new SQLQueryException("Failed in deleteing files from DB");
         }
     }
 
-    public void deleteFileByName(String FileName) throws NullObjectException {
+    public void deleteFileByName(String FileName) throws SQLQueryException {
         logger.info("Inside the delete By Name function");
         String sql= "DELETE FROM filesinfo WHERE name = ?";
         deleteByClassefication(sql, FileName);
         logger.info("deleted from database");
     }
-    public void deleteFileByType(String FileType) throws NullObjectException {
+    public void deleteFileByType(String FileType) throws SQLQueryException {
         logger.info("Inside the delete By Type function");
         String sql = "DELETE FROM filesinfo WHERE type = ?";
         deleteByClassefication(sql,FileType);
         logger.info("deleted from database");
     }
-    public void deleteFileBySize(String FileSize) throws NullObjectException {
+    public void deleteFileBySize(String FileSize) throws SQLQueryException {
         logger.info("Inside the delete By Size function");
         String sql = "DELETE FROM filesinfo WHERE size = ?";
         deleteByClassefication(sql,FileSize);
@@ -50,7 +50,7 @@ public class deleteFile implements IdeleteFile{
             ResultSet resultSet = pstmt.executeQuery();
             DeleteByCustom.deleteByCustom(DBconnection.getConnection(),resultSet);
   
-        }catch (SQLException e){
+        }catch (SQLException | NullObjectException e){
             throw new SQLQueryException("Failed in deleting files from DB");
         }
     }
