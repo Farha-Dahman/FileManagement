@@ -1,8 +1,8 @@
 package fileManagment.Database;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
-import fileManagment.ImportingFiles.intf.ITableCreator;
-import fileManagment.ImportingFiles.impl.TableCreator;
+import fileManagment.FileRepository.ImportingFiles.intf.ITableCreator;
+import fileManagment.FileRepository.ImportingFiles.impl.TableCreator;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 

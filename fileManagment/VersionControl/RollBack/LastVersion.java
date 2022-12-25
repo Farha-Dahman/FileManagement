@@ -1,13 +1,14 @@
 package fileManagment.VersionControl.RollBack;
 
 import fileManagment.Main;
+import fileManagment.VersionControl.RollBack.intf.IlastVersion;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LastVersion implements IlastVersion{
+public class LastVersion implements IlastVersion {
     private static Logger logger = Logger.getLogger(Main.class);
     public int lastVersion(Connection connection, String fileName, String type) throws SQLException {
         logger.info("Inside the lastVersion function");
