@@ -26,6 +26,9 @@ public class EncryptedContentBonus {
         //Generating the pair of keys
         KeyPair pair = keyPairGen.generateKeyPair();
 
+        //Getting the public key from the key pair
+        PublicKey publicKey = pair.getPublic();
+
         //Creating a Cipher object
         Cipher cipher;
         try {
@@ -38,7 +41,7 @@ public class EncryptedContentBonus {
 
         //Initializing a Cipher object
         try {
-            cipher.init(Cipher.ENCRYPT_MODE, pair.getPublic());
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         } catch (InvalidKeyException e) {
             throw new RuntimeException(e);
         }

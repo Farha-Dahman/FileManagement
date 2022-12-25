@@ -46,7 +46,6 @@ public class DecryptedContentBonus {
 
         //Add data to the cipher
         byte[] input = filesReader.ReadingContentAsBytes(path);
-        //byte[] input = r.getBytes();
         cipher.update(input);
 
         //encrypting the data
