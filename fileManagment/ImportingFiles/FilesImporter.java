@@ -6,15 +6,19 @@ import fileManagment.EncryptedDecrypted.Decrypted;
 import fileManagment.EncryptedDecrypted.DecryptedContentBonus;
 import fileManagment.EncryptedDecrypted.Encrypted;
 import fileManagment.EncryptedDecrypted.EncryptedContentBonus;
+import fileManagment.ImportingFiles.intf.IFileChecker;
+import fileManagment.ImportingFiles.intf.IFileImporter;
+import fileManagment.ImportingFiles.intf.IFileSaver;
+import fileManagment.ImportingFiles.intf.IimporterToDB;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.io.*;
 import java.sql.*;
 import java.util.Scanner;
 
-public class FilesImporter {
-    private static Logger logger = Logger.getLogger(Main.class);
-    public static void importFiles(Connection connection, int version) throws SQLQueryException, IOFileException, NullObjectException {
+public class FilesImporter implements IFileImporter {
+    private final static Logger logger = Logger.getLogger(Main.class);
+    public void importFiles(Connection connection, int version) throws SQLQueryException, IOFileException, NullObjectException {
         logger.info("Inside the importFiles function");
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;
@@ -35,10 +39,11 @@ public class FilesImporter {
             copyfileName = new StringBuilder(fileName);
             logger.info("created the StringBuilder");
             System.out.println(copyfileName);
-            c = FilesChecker.fileExists(copyfileName,fileType,version,connection);
+            IFileChecker iFileChecker = new FilesChecker();
+            c = iFileChecker.fileExists(copyfileName,fileType,version,connection);
             while (c!= 0){
                 version++;
-                c = FilesChecker.fileExists(copyfileName,fileType,version,connection);
+                c = iFileChecker.fileExists(copyfileName,fileType,version,connection);
             }
 
             Encrypted.encrypted(copyfileName);
@@ -50,11 +55,13 @@ public class FilesImporter {
 
 
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
-            importerToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
+            IimporterToDB iimporterToDB = new importerToDB();
+            iimporterToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
             if(version != 0) {
                 copyfileName.replace(fileName.length(), fileName.length() + 3, "(" + version + ")");
             }
             logger.info("Inter to the savingFiles function");
-            fileSaver.savingFiles(copyfileName,connection);
+            IFileSaver iFileSaver = new fileSaver();
+            iFileSaver.savingFiles(copyfileName,connection);
     }
 }

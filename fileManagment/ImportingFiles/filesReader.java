@@ -1,6 +1,7 @@
 package fileManagment.ImportingFiles;
 
 import Exceptions.IOFileException;
+import fileManagment.ImportingFiles.intf.IFileReader;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.io.File;
@@ -9,9 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 
-public class filesReader {
+public class filesReader implements IFileReader {
     private final static Logger logger = Logger.getLogger(Main.class);
-    public static byte[] ReadingContentAsBytes(String path) throws IOFileException {
+    public byte[] ReadingContentAsBytes(String path) throws IOFileException {
         logger.info("Inside the ReadingContentAsBytes function");
         File inputfile = new File(path);
         logger.info("create the File");
@@ -37,7 +38,7 @@ public class filesReader {
         } catch (IOException e) {
             throw new IOFileException("Failed in closing input file");
         }
-        System.out.println(ContentsArrayAsBytes);
+        System.out.println(Arrays.toString(ContentsArrayAsBytes));
         return ContentsArrayAsBytes;
     }
 }

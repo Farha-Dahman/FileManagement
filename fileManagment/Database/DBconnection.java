@@ -1,6 +1,7 @@
 package fileManagment.Database;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
+import fileManagment.ImportingFiles.intf.ITableCreator;
 import fileManagment.ImportingFiles.TableCreator;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
@@ -25,7 +26,8 @@ public class DBconnection {
                         Class.forName("com.mysql.jdbc.Driver");
                         connection = DriverManager.getConnection(LINK_OF_DATABASE, USER_NAME, PASSWORD);
                         logger.info("Created connection");
-                        TableCreator.creatingTableForFilesInfo(connection);
+                        ITableCreator iTableCreator = new TableCreator();
+                        iTableCreator.creatingTableForFilesInfo(connection);
                         System.out.println("Success");
                         logger.info("connected Successfully");
                     }

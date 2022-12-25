@@ -3,14 +3,16 @@ package fileManagment.ImportingFiles;
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
+import fileManagment.ImportingFiles.intf.IFileSaver;
+import fileManagment.ImportingFiles.intf.IStoreContentToFile;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.io.*;
 import java.sql.*;
 
-public class fileSaver {
-    private static Logger logger = Logger.getLogger(Main.class);
-    static void savingFiles(StringBuilder name, Connection connection) throws IOFileException, SQLQueryException, NullObjectException {
+public class fileSaver implements IFileSaver {
+    private final static Logger logger = Logger.getLogger(Main.class);
+    public void savingFiles(StringBuilder name, Connection connection) throws IOFileException, SQLQueryException, NullObjectException {
         logger.info("Inside the savingFiles function");
         System.out.println("name is : " + name);
         logger.info("Name of file" + name);
@@ -29,7 +31,8 @@ public class fileSaver {
             throw new IOFileException("Failed on create file at a specific path ");
         }
         logger.info("Go to StoreContentToFile class");
-        StoreContentToFile.storingContent(connection,absoluteFilePath);
+        IStoreContentToFile iStoreContentToFile = new StoreContentToFile();
+        iStoreContentToFile.storingContent(connection,absoluteFilePath);
         System.out.println(absoluteFilePath);
         logger.info("The absoluteFilePath is: " + absoluteFilePath);
         System.out.println();

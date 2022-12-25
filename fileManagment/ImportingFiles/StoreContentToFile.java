@@ -2,6 +2,7 @@ package fileManagment.ImportingFiles;
 import Exceptions.IOFileException;
 import Exceptions.SQLQueryException;
 import Exceptions.NullObjectException;
+import fileManagment.ImportingFiles.intf.IStoreContentToFile;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.io.FileNotFoundException;
@@ -9,11 +10,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 
-public class StoreContentToFile {
+public class StoreContentToFile implements IStoreContentToFile {
     private final static Logger logger = Logger.getLogger(Main.class);
     private static final String SELECTCONTENTQUERY = "select content from FILESINFO";
 
-    public static void storingContent(Connection connection, String OutputFilePath) throws SQLQueryException, IOFileException, NullObjectException {
+    public void storingContent(Connection connection, String OutputFilePath) throws SQLQueryException, IOFileException, NullObjectException {
         logger.info("Inside the storingContent function");
         Statement statement;
         try {

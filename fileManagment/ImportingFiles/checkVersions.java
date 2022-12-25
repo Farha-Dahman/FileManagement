@@ -1,5 +1,6 @@
 package fileManagment.ImportingFiles;
 import Exceptions.SQLQueryException;
+import fileManagment.ImportingFiles.intf.IcheckerVersions;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
@@ -7,9 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class checkVersions {
+public class checkVersions implements IcheckerVersions {
     private static Logger logger = Logger.getLogger(Main.class);
-    static int fileExists(StringBuilder name, String type,int version, Connection connection) throws SQLQueryException {
+    public int fileExists(StringBuilder name, String type, int version, Connection connection) throws SQLQueryException {
         logger.info("Inside the fileExists function");
         String fileName = name.toString();
         int fileId =0;

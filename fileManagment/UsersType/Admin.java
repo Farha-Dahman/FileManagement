@@ -5,22 +5,21 @@ import fileManagment.Database.DBconnection;
 import fileManagment.DeleteFile.deleteFile;
 import fileManagment.FileClassification.printTableCustomCategory;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
-import fileManagment.ImportingFiles.FilesImporter;
-import fileManagment.ImportingFiles.importerToDB;
-import fileManagment.ImportingFiles.TableCreator;
+import fileManagment.ImportingFiles.*;
 
 
+import fileManagment.ImportingFiles.intf.IFileImporter;
+import fileManagment.ImportingFiles.intf.ITableCreator;
+import fileManagment.ImportingFiles.intf.IimporterToDB;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
-import fileManagment.FileClassification.printTableCustomCategory;
-import fileManagment.Main;
-import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Admin {
-    private static Logger logger = Logger.getLogger(Main.class);
+    private final static Logger logger = Logger.getLogger(Main.class);
     public static void displayMenu(){
         logger.info("Inside the displayMenu function");
         System.out.println();
@@ -35,7 +34,7 @@ public class Admin {
         );
         System.out.println();
     }
-    public static int version = 0;
+    private static int version = 0;
     public static void AdminOperation() throws SQLException, NullObjectException, IOFileException {
         logger.info("Inside the AdminOperation function");
         Scanner in = new Scanner(System.in);
@@ -49,8 +48,10 @@ public class Admin {
             switch (choice) {
                 case 1:{
                     logger.info("Inside the case 1");
-                    TableCreator.creatingTableForFilesInfo(connection);
-                    FilesImporter.importFiles(connection,version);
+                    ITableCreator iTableCreator = new TableCreator();
+                    iTableCreator.creatingTableForFilesInfo(connection);
+                    IFileImporter iFileImporter = new FilesImporter();
+                    iFileImporter.importFiles(connection,version);
                     break;
                 }
                 case 2:{
@@ -103,7 +104,8 @@ public class Admin {
                     String FileSize=in.next();
                     System.out.println("Enter name of classification:");
                     String classificationName=in.next();
-                    importerToDB.importCustomCategoryToDB(classificationName,FileName,FileType,FileSize,connection);
+                    IimporterToDB iimporterToDB = new importerToDB();
+                    iimporterToDB.importCustomCategoryToDB(classificationName,FileName,FileType,FileSize,connection);
                     break;
                 }
                 case 6:{

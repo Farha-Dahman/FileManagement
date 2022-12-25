@@ -1,6 +1,8 @@
 package fileManagment.ImportingFiles;
 import Exceptions.IOFileException;
 import Exceptions.SQLQueryException;
+import fileManagment.ImportingFiles.intf.IFileReader;
+import fileManagment.ImportingFiles.intf.IimporterToDB;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import javax.sql.rowset.serial.SerialBlob;
@@ -10,10 +12,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class importerToDB {
+public class importerToDB implements IimporterToDB {
     private final static Logger logger = Logger.getLogger(Main.class);
     private static final String INSERTFILESINFOQUERY = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
-    public static void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) throws SQLQueryException, IOFileException {
+    public void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) throws SQLQueryException, IOFileException {
         logger.info("Inside the importingInfoToDB function");
         try {
             System.out.println("Inserting records into the table...");
@@ -24,7 +26,8 @@ public class importerToDB {
             preparedStmt.setString(2, type);
             preparedStmt.setString(3, size);
             preparedStmt.setInt(4, version);
-            byte[] content = filesReader.ReadingContentAsBytes(file.getPath());
+            IFileReader iFileReader = new filesReader();
+            byte[] content = iFileReader.ReadingContentAsBytes(file.getPath());
 
             Blob ContentBlob = new SerialBlob(content);
             preparedStmt.setBlob(5,ContentBlob);
@@ -36,7 +39,7 @@ public class importerToDB {
             e.printStackTrace();
         }
     }
-    public static void importCustomCategoryToDB(String nameClassification,String name, String type,String size, Connection connection) {
+    public void importCustomCategoryToDB(String nameClassification,String name, String type,String size, Connection connection) throws SQLQueryException {
         try {
             System.out.println("Inserting records into the table...");
             String query = " insert into customCategory(nameClassification,name, type, size)" + " values (?,?, ?, ?)";

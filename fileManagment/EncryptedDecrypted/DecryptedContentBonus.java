@@ -1,5 +1,6 @@
 package fileManagment.EncryptedDecrypted;
 import Exceptions.IOFileException;
+import fileManagment.ImportingFiles.intf.IFileReader;
 import fileManagment.ImportingFiles.filesReader;
 import java.io.UnsupportedEncodingException;
 import java.security.*;
@@ -46,7 +47,8 @@ public class DecryptedContentBonus {
         }
 
         //Add data to the cipher
-        byte[] input = filesReader.ReadingContentAsBytes(path);
+        IFileReader iFileReader = new filesReader();
+        byte[] input = iFileReader.ReadingContentAsBytes(path);
         cipher.update(input);
 
         //encrypting the data

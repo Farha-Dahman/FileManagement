@@ -2,9 +2,11 @@ package fileManagment.OverwriteFiles;
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
-import fileManagment.ImportingFiles.StoreContentToFile;
-import fileManagment.ImportingFiles.FilesChecker;
-import fileManagment.ImportingFiles.filesReader;
+import fileManagment.ImportingFiles.*;
+import fileManagment.ImportingFiles.intf.IFileChecker;
+import fileManagment.ImportingFiles.intf.IFileReader;
+import fileManagment.ImportingFiles.intf.IStoreContentToFile;
+
 import javax.sql.rowset.serial.SerialBlob;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -12,10 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class overwite {
+public class overwite implements IOverwrite{
     private static final String UPDATEQUERY = "update FILESINFO set content = ?";
 
-    public static void overwitting(Connection connection) throws IOFileException, SQLQueryException, NullObjectException {
+    public void overwitting(Connection connection) throws IOFileException, SQLQueryException, NullObjectException {
         Scanner scanner = new Scanner(System.in);
         String fileType,path;
         StringBuilder fileName;
@@ -28,8 +30,8 @@ public class overwite {
         fileVersion= scanner.nextInt();
         System.out.println("Please enter file path: ");
         path = scanner.next();
-
-        fileId = FilesChecker.fileExists(fileName,fileType,fileVersion,connection);
+        IFileChecker iFileChecker = new FilesChecker();
+        fileId = iFileChecker.fileExists(fileName,fileType,fileVersion,connection);
         PreparedStatement preparedStmt;
         try {
             preparedStmt = connection.prepareStatement(UPDATEQUERY);
@@ -37,7 +39,8 @@ public class overwite {
             throw new SQLQueryException("Failed on updating the content on DB");
         }
         if(fileId!=0){
-            byte[] content = filesReader.ReadingContentAsBytes(path);
+            IFileReader iFileReader = new filesReader();
+            byte[] content = iFileReader.ReadingContentAsBytes(path);
             Blob blob;
             try {
                 blob = new SerialBlob(content);
@@ -50,7 +53,8 @@ public class overwite {
 
         String fileSeparator = System.getProperty("file.separator");
         String absoluteFilePath = fileSeparator+"C:"+fileSeparator+"FilesFromImporter"+fileSeparator + fileName + ".txt";
-        StoreContentToFile.storingContent(connection,absoluteFilePath);
+        IStoreContentToFile iStoreContentToFile = new StoreContentToFile();
+        iStoreContentToFile.storingContent(connection,absoluteFilePath);
 
     }
 }

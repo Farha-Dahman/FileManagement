@@ -5,6 +5,8 @@ import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.FileRepository.ExportingFiles.ExportFile;
 import fileManagment.ImportingFiles.FilesImporter;
+import fileManagment.ImportingFiles.intf.IFileImporter;
+import fileManagment.ImportingFiles.intf.ITableCreator;
 import fileManagment.ImportingFiles.TableCreator;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
@@ -13,7 +15,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Staff {
-    private static Logger logger = Logger.getLogger(Main.class);
+    private final static Logger logger = Logger.getLogger(Main.class);
     public static void displayMenu(){
         logger.info("Inside the displayMenu function");
         System.out.println();
@@ -37,8 +39,10 @@ public class Staff {
             switch (choice) {
                 case 1:{
                     logger.info("Inside the case 1");
-                    TableCreator.creatingTableForFilesInfo(connection);
-                    FilesImporter.importFiles(connection, version);
+                    ITableCreator iTableCreator = new TableCreator();
+                    iTableCreator.creatingTableForFilesInfo(connection);
+                    IFileImporter iFileImporter = new FilesImporter();
+                    iFileImporter.importFiles(connection, version);
                     break;
                 }
                 case 2 : {
