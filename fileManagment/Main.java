@@ -27,7 +27,7 @@ public class Main {
             Staff.staffOperation();
         }
         else if(key == READER){
-            Reader.ReaderOperation();
+            Reader.ReadingFile();
         }
         else{
             System.out.println("The entered Key is incorrect");
