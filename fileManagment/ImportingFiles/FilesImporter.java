@@ -18,7 +18,7 @@ public class FilesImporter {
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;
         StringBuilder copyfileName ;
-        boolean c;
+        int c;
             System.out.println("Please enter file path: ");
             path = sc.next();
             logger.info("Enter the file path : " + path);
@@ -34,10 +34,10 @@ public class FilesImporter {
             copyfileName = new StringBuilder(fileName);
             logger.info("created the StringBuilder");
             System.out.println(copyfileName);
-            c = checkVersions.fileExists(copyfileName,fileType,version,connection);
-            while (c){
+            c = FilesChecker.fileExists(copyfileName,fileType,version,connection);
+            while (c!= 0){
                 version++;
-                c = checkVersions.fileExists(copyfileName,fileType,version,connection);
+                c = FilesChecker.fileExists(copyfileName,fileType,version,connection);
             }
 
             Encrypted.encrypted(copyfileName);
