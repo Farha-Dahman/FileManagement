@@ -6,6 +6,11 @@ import fileManagment.FileRepository.ExportingFiles.ExportFile;
 import fileManagment.ImportingFiles.FilesImporter;
 import fileManagment.ImportingFiles.importerToDB;
 import fileManagment.ImportingFiles.TableCreator;
+
+
+import fileManagment.Main;
+import org.apache.log4j.Logger;
+import fileManagment.FileClassification.printTableCustomCategory;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 import java.sql.Connection;
@@ -24,7 +29,7 @@ public class Admin {
                         "4. Enter 4 to delete by classify \n"+
                         "5. Enter 5 to create custom category classification\n"+
                         "6. Enter 6 to show all available classification\n"+
-                        "7. Enter -1 to end program"
+                        "7. Enter  -1 to end program"
         );
         System.out.println();
     }
@@ -60,25 +65,29 @@ public class Admin {
                     break;
                 }
                 case 4:{
-                    logger.info("Inside the case 4");
-                    System.out.println("Enter the number 1 if you want to delete by type or enter the number 2 if you want to delete by size :");
-                    int classifyChoice=in.nextInt();
-                    if(classifyChoice == 1){
-                        System.out.println("Enter the Type of the file you wont to delete:");
-                        String FileType = in.next();
-                        deleteFile.deleteFileByType(FileType);
-                    }
-                    else if(classifyChoice == 2){
-                        logger.info("Inside the case 2");
-                        System.out.println("Enter the size(large,medium,small) of the file you wont to delete:");
-                        String FileSize = in.next();
-                        deleteFile.deleteFileByType(FileSize);
-                    }
-                    else{
-                        logger.info("Inside the last case");
-                        System.out.println("The entered number is incorrect,please reenter 1 or 2.");
-                    }
-                    break;
+
+        System.out.println("Enter the number 1 if you want to delete by type or enter the number 2 if you want to delete by size Enter number 3 if you want to delete by customCategory :");
+        int classifyChoice=in.nextInt();
+        if(classifyChoice==1){
+        System.out.println("Enter the Type of the file you wont to delete:");
+        String FileType = in.next();
+        deleteFile.deleteFileByType(FileType);
+        }
+        else if(classifyChoice==2){
+        System.out.println("Enter the size(large,medium,small) of the file you wont to delete:");
+        String FileSize = in.next();
+        deleteFile.deleteFileByType(FileSize);
+        }
+        else if(classifyChoice==3){
+        printTableCustomCategory.printTableClassification(connection);
+        System.out.println("Enter the name of customClassification:");
+        String nameClassification=in.next();
+        deleteFile.deleteBycustomCategory(nameClassification);
+        }
+        else{
+        System.out.println("The entered number is incorrect,please reenter 1 or 2 or 3.");
+        }
+        break;
                 }
                 case 5:{
                     //FileClassification.CreateTableClassification(connection);
