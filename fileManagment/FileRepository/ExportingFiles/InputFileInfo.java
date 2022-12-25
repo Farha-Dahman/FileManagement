@@ -1,5 +1,6 @@
 package fileManagment.FileRepository.ExportingFiles;
 
+import Exceptions.SQLQueryException;
 import fileManagment.FileRepository.ExportingFiles.Intf.Iapis;
 import fileManagment.FileRepository.ExportingFiles.Intf.InputInfo;
 import fileManagment.Main;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 public class InputFileInfo implements InputInfo {
     private static Logger logger = Logger.getLogger(Main.class);
     @Override
-    public ResultSet insertInfo(Connection connection) {
+    public ResultSet insertInfo(Connection connection) throws SQLQueryException {
         logger.info("Inside the insertInfo function");
         String Choose;
         ResultSet resultSet = null;

@@ -1,5 +1,6 @@
 package fileManagment.FileRepository.ExportingFiles;
 
+import Exceptions.NullObjectException;
 import fileManagment.FileRepository.ExportingFiles.Intf.InputInfo;
 import fileManagment.Main;
 import fileManagment.VersionControl.RollBack.IlastVersion;
@@ -7,6 +8,7 @@ import fileManagment.VersionControl.RollBack.LastVersion;
 import org.apache.log4j.Logger;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,7 +16,7 @@ import java.sql.SQLException;
 
 public class ExportFile {
     private static Logger logger = Logger.getLogger(Main.class);
-    public static void exportFile(Connection connection) throws SQLException {
+    public static void exportFile(Connection connection) throws SQLException, NullObjectException {
         logger.info("Inside the exportFile function");
         InputInfo inputInfo = new InputFileInfo();
         ResultSet resultSet = inputInfo.insertInfo(connection);
@@ -37,8 +39,8 @@ public class ExportFile {
                 printWriter.write(resultSet.getString("content"));
                 printWriter.close();
                 logger.info("Closed the printWriter");
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+            } catch (FileNotFoundException e) {
+                throw new NullObjectException("Failed on writing file to another (maybe it's empty)");
             }
         }
 }

@@ -68,7 +68,7 @@ public class ExportByCustom {
             }
         } catch (SQLException e) {
             throw new SQLQueryException("Failed in getting files information by custom from DB ");
-        } catch (NullObjectException e) {
+        } catch (NullPointerException e) {
             throw new NullObjectException("Failed on getting the connection ");
         }
     }
