@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class filesReader implements IFileReader {
     private final static Logger logger = Logger.getLogger(Main.class);
     public byte[] ReadingContentAsBytes(String path) throws IOFileException {
+        logger.debug("Enter to ReadingContentAsBytes function with 1 parameter path");
         logger.info("Inside the ReadingContentAsBytes function");
         File inputfile = new File(path);
         logger.info("create the File");
@@ -39,6 +40,7 @@ public class filesReader implements IFileReader {
             throw new IOFileException("Failed in closing input file");
         }
         System.out.println(Arrays.toString(ContentsArrayAsBytes));
+        logger.debug("Exit from ReadingContentAsBytes function");
         return ContentsArrayAsBytes;
     }
 }

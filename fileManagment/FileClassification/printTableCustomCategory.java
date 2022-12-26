@@ -12,6 +12,7 @@ import java.sql.Statement;
 public class printTableCustomCategory {
     private static Logger logger = Logger.getLogger(Main.class);
     public static void printTableClassification(Connection connection) throws SQLQueryException {
+        logger.debug("enter to printTableClassification function with connection parameter");
         logger.info("Inside the print Table Classification function");
         try {
             String query = "SELECT * FROM customCategory";
@@ -40,8 +41,10 @@ public class printTableCustomCategory {
                     System.out.println("Size of file : "+fileSize);
                 }
                 System.out.println("-----------------");
+                logger.warn("if you trying it and the DB empty,an ERROR occur");
             }
             statement.close();
+            logger.debug("exit from printTableClassification function");
         } catch (SQLException e) {
             throw new SQLQueryException("Failed on getting info from DB");
         }

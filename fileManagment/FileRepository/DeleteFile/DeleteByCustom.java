@@ -3,6 +3,7 @@ package fileManagment.FileRepository.DeleteFile;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
 import fileManagment.Database.DBconnection;
+import fileManagment.Database.IDBconnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,6 +16,7 @@ public class DeleteByCustom {
         String fileName=null;
         String fileType=null;
         String fileSize=null;
+        IDBconnection idBconnection = new DBconnection();
         try{
         while (resultSet.next()) {
             fileName = resultSet.getString(1);
@@ -23,26 +25,26 @@ public class DeleteByCustom {
         }
         if(!fileName.equals("null")&&!fileType.equals("null")&&!fileSize.equals("null")) {
             String deleteSql = "DELETE FROM filesinfo WHERE name = ? and type=? and size=?";
-            PreparedStatement pstmtdelete = DBconnection.getConnection().prepareStatement(deleteSql);
+            PreparedStatement pstmtdelete = idBconnection.getConnection().prepareStatement(deleteSql);
             pstmtdelete.setString(1, fileName);
             pstmtdelete.setString(2, fileType);
             pstmtdelete.setString(3, fileSize);
             pstmtdelete.executeUpdate();
         }else if(!fileName.equals("null")&&!fileType.equals("null")&&fileSize.equals("null")){
             String deleteSql = "DELETE FROM filesinfo WHERE name = ? and type=?";
-            PreparedStatement pstmtdelete = DBconnection.getConnection().prepareStatement(deleteSql);
+            PreparedStatement pstmtdelete = idBconnection.getConnection().prepareStatement(deleteSql);
             pstmtdelete.setString(1, fileName);
             pstmtdelete.setString(2, fileType);
             pstmtdelete.executeUpdate();
         }else if(!fileName.equals("null")&&!fileSize.equals("null")&&fileType.equals("null")){
             String deleteSql = "DELETE FROM filesinfo WHERE name = ? and size=?";
-            PreparedStatement pstmtdelete = DBconnection.getConnection().prepareStatement(deleteSql);
+            PreparedStatement pstmtdelete = idBconnection.getConnection().prepareStatement(deleteSql);
             pstmtdelete.setString(1, fileName);
             pstmtdelete.setString(2, fileSize);
             pstmtdelete.executeUpdate();
         }else if(!fileType.equals("null")&&!fileSize.equals("null")&&fileName.equals("null")){
             String deleteSql = "DELETE FROM filesinfo WHERE type = ? and size=?";
-            PreparedStatement pstmtdelete = DBconnection.getConnection().prepareStatement(deleteSql);
+            PreparedStatement pstmtdelete = idBconnection.getConnection().prepareStatement(deleteSql);
             pstmtdelete.setString(1, fileType);
             pstmtdelete.setString(2, fileSize);
             pstmtdelete.executeUpdate();

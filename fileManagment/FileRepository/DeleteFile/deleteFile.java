@@ -2,6 +2,7 @@ package fileManagment.FileRepository.DeleteFile;
 import Exceptions.SQLQueryException;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
+import fileManagment.Database.IDBconnection;
 import fileManagment.Main;
 import org.apache.log4j.Logger;
 
@@ -9,10 +10,11 @@ import java.sql.*;
 
 public class deleteFile implements IdeleteFile{
     private static Logger logger = Logger.getLogger(Main.class);
+    IDBconnection idBconnection = new DBconnection();
     public void deleteByClassefication(String sql,String classification) throws SQLQueryException {
         logger.info("Inside the delete By Classification function");
         try {
-            PreparedStatement pstmt = DBconnection.getConnection().prepareStatement(sql);
+            PreparedStatement pstmt = idBconnection.getConnection().prepareStatement(sql);
             pstmt.setString(1,classification);
             pstmt.executeUpdate();
             System.out.println("File deleted..");
@@ -45,10 +47,10 @@ public class deleteFile implements IdeleteFile{
         String sql = "SELECT name,type,size FROM customCategory WHERE nameClassification=?";
         PreparedStatement pstmt=null;
         try{
-            pstmt = DBconnection.getConnection().prepareStatement(sql);
+            pstmt = idBconnection.getConnection().prepareStatement(sql);
             pstmt.setString(1,nameClassification);
             ResultSet resultSet = pstmt.executeQuery();
-            DeleteByCustom.deleteByCustom(DBconnection.getConnection(),resultSet);
+            DeleteByCustom.deleteByCustom(idBconnection.getConnection(),resultSet);
   
         }catch (SQLException | NullObjectException e){
             throw new SQLQueryException("Failed in deleting files from DB");

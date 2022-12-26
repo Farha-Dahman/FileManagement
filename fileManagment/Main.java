@@ -19,6 +19,7 @@ public class Main {
     private final static int STAFF = 122;
     private final static int READER = 133;
     public static void main(String[] args) throws SQLException, NullObjectException, IOFileException {
+
         logger.info("Here you inside main");
         Scanner in = new Scanner(System.in);
         System.out.println("Enter the Key to determine if you are an Admin, User or Reader : ");

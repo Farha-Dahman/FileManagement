@@ -5,6 +5,7 @@ import Exceptions.SQLQueryException;
 import fileManagment.EncryptedDecrypted.impl.Encrypted;
 import fileManagment.EncryptedDecrypted.impl.EncryptedContentBonus;
 import fileManagment.EncryptedDecrypted.intf.IEncrypted;
+import fileManagment.EncryptedDecrypted.intf.IEncryptedContent;
 import fileManagment.FileRepository.ImportingFiles.intf.IFileChecker;
 import fileManagment.FileRepository.ImportingFiles.intf.IFileImporter;
 import fileManagment.FileRepository.ImportingFiles.intf.IFileSaver;
@@ -18,6 +19,7 @@ import java.util.Scanner;
 public class FilesImporter implements IFileImporter {
     private final static Logger logger = Logger.getLogger(Main.class);
     public void importFiles(Connection connection, int version) throws SQLQueryException, IOFileException, NullObjectException {
+        logger.debug("Enter to importFiles function with 2 parameters connection and version");
         logger.info("Inside the importFiles function");
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;
@@ -46,20 +48,21 @@ public class FilesImporter implements IFileImporter {
             }
 
             IEncrypted iEncrypted =new Encrypted();
-            iEncrypted.Encrypt(copyfileName.toString());
+            iEncrypted.Encrypt(copyfileName);
             System.out.println("enc  " + copyfileName);
-            IEncrypted iEncryptedContent =new EncryptedContentBonus();
-            iEncryptedContent.Encrypt(path);
+            IEncryptedContent iEncryptedContent =new EncryptedContentBonus();
+            byte[] content = iEncryptedContent.Encrypt(path);
 
 
             System.out.println(" name : " + file.getName() + " size : " + file.length() + " size : " + fileSize + " new name: " + copyfileName);
             IimporterToDB iimporterToDB = new importerToDB();
-            iimporterToDB.importingInfoToDB(file,copyfileName, fileType, fileSize,version,connection);
+            iimporterToDB.importingInfoToDB(content, copyfileName, fileType, fileSize,version,connection);
             if(version != 0) {
                 copyfileName.replace(fileName.length(), fileName.length() + 3, "(" + version + ")");
             }
             logger.info("Inter to the savingFiles function");
             IFileSaver iFileSaver = new fileSaver();
             iFileSaver.savingFiles(copyfileName,connection);
+            logger.debug("Exit from importFiles function");
     }
 }
