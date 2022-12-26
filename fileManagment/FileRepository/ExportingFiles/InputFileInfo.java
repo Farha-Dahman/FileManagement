@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.util.Scanner;
 
 public class InputFileInfo implements InputInfo {
-    private static Logger logger = Logger.getLogger(Main.class);
+    private static final Logger logger = Logger.getLogger(Main.class);
     @Override
     public ResultSet insertInfo(Connection connection) throws SQLQueryException {
         logger.info("Inside the insertInfo function");
@@ -20,7 +20,7 @@ public class InputFileInfo implements InputInfo {
         Iapis iapis = new apis();
         Scanner user = new Scanner(System.in);
         logger.info("Create the Scanner object");
-        System.out.print("Insert your choose: ");
+        System.out.print("Insert your choose(name, type, size, custom): ");
         Choose = user.nextLine().trim();
         logger.info("the Choose of the user is : " + Choose);
         if (Choose.equals("name")) {
