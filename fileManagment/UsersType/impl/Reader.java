@@ -3,9 +3,9 @@ package fileManagment.UsersType.impl;
 import Exceptions.NullObjectException;
 import fileManagment.Database.DBconnection;
 import fileManagment.Database.IDBconnection;
+import fileManagment.FileRepository.ImportingFiles.impl.FilesChecker;
 import fileManagment.FileRepository.ImportingFiles.intf.IFileChecker;
 import fileManagment.FileRepository.ReadFile.readFile;
-import fileManagment.ImportingFiles.impl.FilesChecker;
 import fileManagment.Main;
 import fileManagment.UsersType.intf.IReader;
 import fileManagment.VersionControl.RollBack.LastVersion;
@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Reader implements IReader {
-    private final static Logger logger = Logger.getLogger(Main.class);
     private static int version=0;
     public void ReadingFile() throws SQLException, NullObjectException {
         IDBconnection idBconnection = new DBconnection();
