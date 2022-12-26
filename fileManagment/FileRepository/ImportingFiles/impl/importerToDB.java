@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class importerToDB implements IimporterToDB {
     private final static Logger logger = Logger.getLogger(Main.class);
     private static final String INSERTFILESINFOQUERY = " insert into FILESINFO (name, type, size, version,content)" + " values (?, ?, ?,?,?)";
-    public void importingInfoToDB(File file ,StringBuilder name, String type,String size, int version,Connection connection) throws SQLQueryException, IOFileException {
+    public void importingInfoToDB(byte[] content ,StringBuilder name, String type,String size, int version,Connection connection) throws SQLQueryException, IOFileException {
         logger.debug("Enter to importingInfoToDB function with 6 parameters file,name,type,size,version and connection");
         logger.info("Inside the importingInfoToDB function");
         try {
@@ -28,7 +28,7 @@ public class importerToDB implements IimporterToDB {
             preparedStmt.setString(3, size);
             preparedStmt.setInt(4, version);
             IFileReader iFileReader = new filesReader();
-            byte[] content = iFileReader.ReadingContentAsBytes(file.getPath());
+            //byte[] content = iFileReader.ReadingContentAsBytes(file.getPath());
 
             Blob ContentBlob = new SerialBlob(content);
             preparedStmt.setBlob(5,ContentBlob);
