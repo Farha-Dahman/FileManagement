@@ -2,6 +2,7 @@ package fileManagment.VersionControl.RollBack;
 
 import fileManagment.FileRepository.ExportingFiles.Intf.InputInfo;
 import fileManagment.Main;
+import fileManagment.VersionControl.RollBack.intf.IRollBack;
 import fileManagment.VersionControl.RollBack.intf.IlastVersion;
 import org.apache.log4j.Logger;
 
@@ -10,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class RollBack {
+public class RollBack implements IRollBack {
     private static Logger logger = Logger.getLogger(Main.class);
     public void rollBack(Connection connection) throws SQLException {
         logger.info("Inside the rollBack function");

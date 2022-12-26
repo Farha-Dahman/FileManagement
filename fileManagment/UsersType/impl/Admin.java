@@ -18,6 +18,10 @@ import fileManagment.FileRepository.ImportingFiles.intf.ITableCreator;
 import fileManagment.FileRepository.ImportingFiles.intf.IimporterToDB;
 import fileManagment.Main;
 import fileManagment.UsersType.intf.IAdmin;
+import fileManagment.VersionControl.OverwriteFiles.IOverwrite;
+import fileManagment.VersionControl.OverwriteFiles.overwite;
+import fileManagment.VersionControl.RollBack.RollBack;
+import fileManagment.VersionControl.RollBack.intf.IRollBack;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -36,7 +40,9 @@ public class Admin implements IAdmin {
                         "4. Enter 4 to delete by classify \n"+
                         "5. Enter 5 to create custom category classification\n"+
                         "6. Enter 6 to show all available classification\n"+
-                        "7. Enter  -1 to end program"
+                        "7. Enter 7 to make RollBack\n"+
+                        "8. Enter 8 to make overWrite\n"+
+                        "9. Enter -1 to end program"
         );
         System.out.println();
     }
@@ -60,44 +66,40 @@ public class Admin implements IAdmin {
                     IFileImporter iFileImporter = new FilesImporter();
                     iFileImporter.importFiles(connection,version);
                     break;
-                }
-                case 2:{
+                } case 2:{
                     logger.info("Inside the case 1");
                     IExportFile exportfile = new ExportFile();
                     exportfile.exportFile(connection);
                     break;
-                }
-                case 3: {
+                } case 3: {
                     logger.info("Inside the case 3");
                     System.out.println("Enter the name of the file you wont to delete:");
                     String FileName = in.next();
                     ideleteFile.deleteFileByName(FileName);
                     break;
-                }
-                case 4:{
-
-        System.out.println("Enter the number 1 if you want to delete by type or enter the number 2 if you want to delete by size Enter number 3 if you want to delete by customCategory :");
-        int classifyChoice=in.nextInt();
-        if(classifyChoice==1){
-        System.out.println("Enter the Type of the file you wont to delete:");
-        String FileType = in.next();
-        ideleteFile.deleteFileByType(FileType);
-        }
-        else if(classifyChoice==2){
-        System.out.println("Enter the size(large,medium,small) of the file you wont to delete:");
-        String FileSize = in.next();
-        ideleteFile.deleteFileBySize(FileSize);
-        }
-        else if(classifyChoice==3){
-        printTableCustomCategory.printTableClassification(connection);
-        System.out.println("Enter the name of customClassification:");
-        String nameClassification=in.next();
-        ideleteFile.deleteBycustomCategory(nameClassification);
-        }
-        else{
-        System.out.println("The entered number is incorrect,please reenter 1 or 2 or 3.");
-        }
-        break;
+                } case 4:{
+                    System.out.println("Enter the number 1 if you want to delete by type or enter the number 2 if you want to delete by size Enter number 3 if you want to delete by customCategory :");
+                    int classifyChoice=in.nextInt();
+                    if(classifyChoice==1){
+                    System.out.println("Enter the Type of the file you wont to delete:");
+                    String FileType = in.next();
+                    ideleteFile.deleteFileByType(FileType);
+                    }
+                    else if(classifyChoice==2){
+                    System.out.println("Enter the size(large,medium,small) of the file you wont to delete:");
+                    String FileSize = in.next();
+                    ideleteFile.deleteFileBySize(FileSize);
+                    }
+                    else if(classifyChoice==3){
+                    printTableCustomCategory.printTableClassification(connection);
+                    System.out.println("Enter the name of customClassification:");
+                    String nameClassification=in.next();
+                    ideleteFile.deleteBycustomCategory(nameClassification);
+                    }
+                    else{
+                    System.out.println("The entered number is incorrect,please reenter 1 or 2 or 3.");
+                    }
+                    break;
                 }
                 case 5:{
                     //FileClassification.CreateTableClassification(connection);
@@ -114,12 +116,20 @@ public class Admin implements IAdmin {
                     IimporterToDB iimporterToDB = new importerToDB();
                     iimporterToDB.importCustomCategoryToDB(classificationName,FileName,FileType,FileSize,connection);
                     break;
-                }
-                case 6:{
+                } case 6:{
                     printTableCustomCategory.printTableClassification(connection);
                     break;
-                }
-                case -1: {
+                } case 7: {
+                    logger.info("Inside the case 7");
+                    IRollBack iRollBack = new RollBack();
+                    iRollBack.rollBack(connection);
+                    break;
+                } case 8: {
+                    logger.info("Inside the case 8");
+                    IOverwrite iOverwrite = new overwite();
+                    iOverwrite.overwitting(connection);
+                    break;
+                } case -1: {
                     logger.info("Inside the case -1");
                     idBconnection.Close();
                     System.out.println("end of program");
