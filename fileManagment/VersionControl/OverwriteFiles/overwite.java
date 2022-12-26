@@ -2,7 +2,7 @@ package fileManagment.VersionControl.OverwriteFiles;
 import Exceptions.IOFileException;
 import Exceptions.NullObjectException;
 import Exceptions.SQLQueryException;
-import fileManagment.ImportingFiles.impl.FilesChecker;
+import fileManagment.FileRepository.ImportingFiles.impl.FilesChecker;
 import fileManagment.FileRepository.ImportingFiles.impl.StoreContentToFile;
 import fileManagment.FileRepository.ImportingFiles.impl.filesReader;
 import fileManagment.FileRepository.ImportingFiles.intf.IFileChecker;
