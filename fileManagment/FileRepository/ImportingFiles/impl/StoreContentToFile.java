@@ -15,6 +15,7 @@ public class StoreContentToFile implements IStoreContentToFile {
     private static final String SELECTCONTENTQUERY = "select content from FILESINFO";
 
     public void storingContent(Connection connection, String OutputFilePath) throws SQLQueryException, IOFileException, NullObjectException {
+        logger.debug("Enter to storingContent function with 2 parameters connection and the OutputFilePath");
         logger.info("Inside the storingContent function");
         Statement statement;
         try {
@@ -65,5 +66,6 @@ public class StoreContentToFile implements IStoreContentToFile {
         } catch (IOException e) {
             throw new IOFileException("Failed on writing content to a specific file");
         }
+        logger.debug("Exit from storingContent function");
     }
 }

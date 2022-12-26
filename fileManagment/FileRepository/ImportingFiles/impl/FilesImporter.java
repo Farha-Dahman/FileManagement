@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class FilesImporter implements IFileImporter {
     private final static Logger logger = Logger.getLogger(Main.class);
     public void importFiles(Connection connection, int version) throws SQLQueryException, IOFileException, NullObjectException {
+        logger.debug("Enter to importFiles function with 2 parameters connection and version");
         logger.info("Inside the importFiles function");
         Scanner sc= new Scanner(System.in);
         String path,fileType,fileSize,fileName;
@@ -61,5 +62,6 @@ public class FilesImporter implements IFileImporter {
             logger.info("Inter to the savingFiles function");
             IFileSaver iFileSaver = new fileSaver();
             iFileSaver.savingFiles(copyfileName,connection);
+            logger.debug("Exit from importFiles function");
     }
 }

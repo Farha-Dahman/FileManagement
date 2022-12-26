@@ -12,7 +12,6 @@ import javax.crypto.NoSuchPaddingException;
 
 public class DecryptedContentBonus implements IDecrypted {
     public void Decrypt(String path) throws IOFileException {
-
         //Creating KeyPair generator object
         KeyPairGenerator keyPairGen;
         try {

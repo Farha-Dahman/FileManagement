@@ -55,8 +55,8 @@ public class Admin implements IAdmin {
             switch (choice) {
                 case 1:{
                     logger.info("Inside the case 1");
-                    ITableCreator iTableCreator = new TableCreator();
-                    iTableCreator.creatingTableForFilesInfo(connection);
+                    //ITableCreator iTableCreator = new TableCreator();
+                    //iTableCreator.creatingTableForFilesInfo(connection);
                     IFileImporter iFileImporter = new FilesImporter();
                     iFileImporter.importFiles(connection,version);
                     break;
